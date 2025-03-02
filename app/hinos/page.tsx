@@ -2,15 +2,16 @@
 
 
 import { useState } from "react"
+import { addHino } from "@/lib/hinos/hino"
 
 export default function Page() {
-    const [titulo, setTitulo] = useState('')
+    const [titulo, setTitulo] = useState('titulo')
     const [numero, setNumero] = useState(0)
-    const [letra, setLetra] = useState('') 
+    const [letra, setLetra] = useState('letra') 
 
-    const handleSubmit = (event:any)=>{
+    const handleSubmit = (event: any) => {
         event.preventDefault()
-        addHino({ titulo, numero, letra })
+        addHino( titulo, numero, letra )
     }
 
     return (

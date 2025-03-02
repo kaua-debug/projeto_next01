@@ -1,118 +1,78 @@
 'use client'
 
+import { addInstrutores } from "@/lib/instrutores/instrutores"
 import { useState } from "react"
 
 export default function Page() {
-    const [nome, setNome] = useState('')
-    const [especialidade, setEspecialidade] = useState('')
-    const [dataNascimento, setDataNascimento] = useState('')
-    const [endereco, setEndereco] = useState('')
-    const [comum, setComum] = useState('')
-
-    const handleSubmit = (event: any) => {
+    //aqui fica as constates
+    const [nome, setNome] = useState('nome')    
+    const [especialidade, setEspecialidade] = useState('especialidade')
+    const [data_nascimento, data_Nascimento] = useState('data de nascimento')
+    const [endereco, setEndereco] = useState('endereco')    
+    const [comum, setComum] = useState('comum')    
+    const handlSubmit = (event: any) => {
         event.preventDefault()
-
-        const instrutor = { nome, especialidade, dataNascimento, endereco, comum }
-        console.log('Cadastro de Instrutor:', instrutor)
+        addInstrutores(nome, especialidade, data_nascimento, endereco, comum)
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="space-y-12">
+        <form onSubmit={handlSubmit}>
+            <div className="spcae-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-base font-semibold text-gray-900">Cadastro de Instrutor</h2>
-                    <p className="mt-1 text-sm text-gray-600">Preencha as informações abaixo para cadastrar o instrutor.</p>
+                    <h2 className="text-base/7 font-semibold text-gray-900">Instrutor</h2>
+                    <p className="mt-1 text-sm/6 text-gray-600">Informaçoes do Instrutor</p>
                 </div>
 
-                
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="nome" className="block text-sm font-medium text-gray-900">Nome</label>
+                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">Nome</label>
                         <div className="mt-2">
-                            <input
-                                type="text"
-                                value={nome}
-                                onChange={(event) => setNome(event.target.value)}
-                                id="nome"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
-                            />
+                            <input type="text" value={nome} onChange={(event) => setNome(event.target.value)} name="first-name" id="nome_produto" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
                     </div>
                 </div>
 
-               
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="especialidade" className="block text-sm font-medium text-gray-900">Especialidade</label>
+                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">Especialidade</label>
                         <div className="mt-2">
-                            <input
-                                type="text"
-                                value={especialidade}
-                                onChange={(event) => setEspecialidade(event.target.value)}
-                                id="especialidade"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
-                            />
+                            <input type="text" value={especialidade} onChange={(event) => setEspecialidade(event.target.value)} name="first-name" id="nome_produto" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
                     </div>
                 </div>
 
-                
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="dataNascimento" className="block text-sm font-medium text-gray-900">Data de Nascimento</label>
+                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">Data de nascimento</label>
                         <div className="mt-2">
-                            <input
-                                type="date"
-                                value={dataNascimento}
-                                onChange={(event) => setDataNascimento(event.target.value)}
-                                id="dataNascimento"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
-                            />
+                            <input type="date" value={data_nascimento} onChange={(event) => data_Nascimento(event.target.value)} name="first-name" id="nome_produto" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
                     </div>
                 </div>
 
-              
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="endereco" className="block text-sm font-medium text-gray-900">Endereço</label>
+                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">Endereço</label>
                         <div className="mt-2">
-                            <input
-                                type="text"
-                                value={endereco}
-                                onChange={(event) => setEndereco(event.target.value)}
-                                id="endereco"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
-                            />
+                            <input type="text" value={endereco} onChange={(event) => setEndereco(event.target.value)} name="first-name" id="nome_produto" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
                     </div>
                 </div>
 
-                
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="comum" className="block text-sm font-medium text-gray-900">Comum</label>
+                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">Comum</label>
                         <div className="mt-2">
-                            <input
-                                type="text"
-                                value={comum}
-                                onChange={(event) => setComum(event.target.value)}
-                                id="comum"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
-                            />
+                            <input type="text" value={comum} onChange={(event) => setComum(event.target.value)} name="first-name" id="nome_produto" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button type="button" className="text-sm font-semibold text-gray-900">Cancelar</button>
-                <button
-                    type="submit"
-                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                    Cadastrar Instrutor
-                </button>
+                <button type="button" className="text-sm/6 font-semibold text-gray-900">Cancel</button>
+                <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
             </div>
         </form>
     )

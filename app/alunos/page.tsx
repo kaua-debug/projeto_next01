@@ -1,5 +1,6 @@
 'use client'
 
+import { addAluno } from "@/lib/alunos/aluno"
 import { useState } from "react"
 
 export default function Page() {
@@ -9,21 +10,15 @@ export default function Page() {
     const [dataNascimento, setDataNascimento] = useState('')
     const [corPele, setCorPele] = useState('')
 
-    const handleSubmit = (event: any) => {
+    const handlSubmit = (event: any) => {
         event.preventDefault()
-
-        const aluno = {
-            nome,
-            nomePai,
-            nomeMae,
-            dataNascimento,
-            corPele
-        }
-        console.log('Cadastro de Aluno:', aluno) // Aqui você pode enviar os dados para um servidor ou outro processamento
+        addAluno(nome, nomePai, nomeMae, dataNascimento, corPele)
     }
 
+    
+
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handlSubmit}>
             <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
                     <h2 className="text-base font-semibold text-gray-900">Cadastro de Aluno</h2>

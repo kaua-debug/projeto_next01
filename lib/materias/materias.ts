@@ -1,4 +1,6 @@
-import { pool } from '@/lib/db'
+ 'use server'
+ 
+ import { pool } from '@/lib/db'
 
 export async function addMaterias (nome: string, descricao: string, ano_letivo: string ) 
 {
