@@ -10,7 +10,7 @@ export default function ProfessoresPage() {
     const [telefone, setTelefone] = useState('')
     const [email, setEmail] = useState('')
 
-    const handleSubmit = (event:any) => {
+    const handleSubmit = (event: any) => {
         event.preventDefault()
         addProfessor( nome, endereco, especialidade, telefone, email )
     }
