@@ -21,7 +21,7 @@ CREATE TABLE public.alunos (
 
 -- DROP TABLE public.animais;
 
-CREATE TABLE public.animais (
+CREATE TABLE public.animais (rs
 	id serial4 NOT NULL,
 	nome varchar(100) NOT NULL,
 	nome_cientifico varchar(150) NULL,

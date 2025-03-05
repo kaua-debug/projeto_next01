@@ -93,6 +93,15 @@ export default function Page() {
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
                         <label htmlFor="corPele" className="block text-sm font-medium text-gray-900">Cor da Pele</label>
+
+                    <select id="corPele">
+                        <option value="´clara">Clara</option>
+                        <option value="morena-clara">Morena-Clara</option>
+                        <option value="morena">Morena</option>
+                        <option value="parda">Parda</option>
+                        <option value="neegra">Negra</option>
+                    </select>
+
                         <div className="mt-2">
                             <input
                                 type="text"

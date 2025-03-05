@@ -1,5 +1,55 @@
 'use server'
 import { pool } from "../db"
-export async function addCasas(tipo: string, endereco: string, areaterreno: string, areaconstruida: string, quartos: string, banheiros: string, edicula: string, churrasqueira: string, piscina: string, valorcondominio: string, precovenda: string) {
-    await pool.query(`insert into casas (tipo, endereco, area_terreno, area_construida, quantidade_quartos, quantidade_banheiros, tem_edicula, tem_churrasqueira, tem_piscina, valor_condominio, preco_venda) values ('${tipo}', '${endereco}', '${areaterreno}', '${areaconstruida}', '${quartos}', ${banheiros}, '${edicula}', '${churrasqueira}', '${piscina}', ${valorcondominio}, '${precovenda}')`)
+export async function addCasa(
+    tipo: string, 
+    endereco: string, 
+    area_terreno: number, 
+    area_construida: number, 
+    quantidade_quartos: number, 
+    quantidade_banheiros: number, 
+    tem_edicula: string, 
+    tem_churrasqueira: boolean, 
+    tem_piscina: boolean, 
+    valor_condominio: number, 
+    preco_venda: number
+) {
+    await pool.query(`insert into casa (
+        tipo, 
+        endereco, 
+        area_terreno, 
+        area_construida, 
+        quantidade_quartos, 
+        quantidade_banheiros, 
+        tem_edicula, 
+        tem_churrasqueira, 
+        tem_piscina, 
+        valor_condominio, 
+        preco_venda
+        ) values (
+        $1,
+        $2,
+        $3,
+        $4,
+        $5,
+        $6,
+        $7,
+        $8,
+        $9,
+        $10,
+        $11
+    )`,
+    [
+        tipo,
+        endereco,
+        area_terreno, 
+        area_construida, 
+        quantidade_quartos, 
+        quantidade_banheiros, 
+        tem_edicula, 
+        tem_churrasqueira, 
+        tem_piscina, 
+        valor_condominio, 
+        preco_venda
+    ]    
+)
 } 
