@@ -33,7 +33,7 @@ export default function Page() {
           type="text"
           id="fabricante"
           value={fabricante}
-          onChange={(e) => setFabricante(e.target.value)}
+          onChange={(event) => setFabricante(event.target.value)}
           className="mt-2 block w-full rounded-md border-gray-300 p-2 text-gray-900 focus:border-indigo-600"
         />
       </div>
@@ -46,7 +46,7 @@ export default function Page() {
           type="text"
           id="modelo"
           value={modelo}
-          onChange={(e) => setModelo(e.target.value)}
+          onChange={(event) => setModelo(event.target.value)}
           className="mt-2 block w-full rounded-md border-gray-300 p-2 text-gray-900 focus:border-indigo-600"
         />
       </div>
@@ -59,7 +59,7 @@ export default function Page() {
           type="number"
           id="anoFabricação"
           value={ano_fabricacao}
-          onChange={(e) => setAnoFabricação(e.target.value)}
+          onChange={(event) => setAnoFabricação(event.target.value)}
           className="mt-2 block w-full rounded-md border-gray-300 p-2 text-gray-900 focus:border-indigo-600"
         />
       </div>
@@ -72,7 +72,7 @@ export default function Page() {
           type="text"
           id="cor"
           value={cor}
-          onChange={(e) => setCor(e.target.value)}
+          onChange={(event) => setCor(event.target.value)}
           className="mt-2 block w-full rounded-md border-gray-300 p-2 text-gray-900 focus:border-indigo-600"
         />
       </div>
@@ -85,7 +85,7 @@ export default function Page() {
           type="number"
           id="quilometrosRodados"
           value={quilometros_rodados}
-          onChange={(e) => setQuilometrosRodados(e.target.value)}
+          onChange={(event) => setQuilometrosRodados(event.target.value)}
           className="mt-2 block w-full rounded-md border-gray-300 p-2 text-gray-900 focus:border-indigo-600"
         />
       </div>
