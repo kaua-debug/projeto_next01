@@ -1,18 +1,18 @@
 'use client'
 import { addCliente } from "@/lib/clientes/clientes";
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useState } from "react";
 
 export default function Page() {
-    const [ nome, setNome] = useState('')
-    const [ endereco, setEndereco] = useState('')
-    const [ data_de_nascimento, setDataDeNascimento] = useState('')
+    const [ nome, setNome] = useState('nome')
+    const [ endereco, setEndereco] = useState('endereço')
+    const [ data_de_nascimento, setDataDeNascimento] = useState('data')
     const [ numero_de_telefone, setNumeroDeTelefone] = useState(0)  
-    const [ email, setEmail] = useState('')
-    const [ CPF, setCPF] = useState(0)
+    const [ email, setEmail] = useState('email') 
+    const [ cpf, setCPF] = useState('CPF')
     const handlSubmit = (event: any) => {
       event.preventDefault()
-      addCliente(nome, endereco, data_de_nascimento, numero_de_telefone, email, CPF)
+      addCliente(nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf)
     }
 
   return (
@@ -20,8 +20,8 @@ export default function Page() {
       <form onSubmit={handlSubmit}>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold text-gray-900">customer page </h2>
-          <p className="mt-1 text-sm text-gray-600">informaçoes dos clientes</p>
+          <h2 className="text-base font-semibold text-gray-900">Informações do cliente</h2>
+          <p className="mt-1 text-sm text-gray-600">Coloque as informações seguintes:</p>
 
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-3">
@@ -67,7 +67,7 @@ export default function Page() {
             <div className="col-span-full">
               <label htmlFor="cpf" className="block text-sm font-medium text-gray-900">CPF</label>
               <div className="mt-2">
-                <input type="text" id="cpf" name="CPF" value={CPF} onChange={(event) => setCPF(parseInt(event.target.value))} required
+                <input type="text" id="cpf" name="cpf" value={cpf} onChange={(event) => setCPF(parseInt(event.target.value))} required
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm" />
               </div>
             </div>
