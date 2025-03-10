@@ -2,14 +2,14 @@
 
 
 import { useState } from "react"
-import { addHino } from "@/lib/hinos/hino"
+import { addHino } from "@/lib/hino/hino"
 
 export default function Page() {
     const [titulo, setTitulo] = useState('titulo')
     const [numero, setNumero] = useState(0)
     const [letra, setLetra] = useState('letra') 
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event:any) => {
         event.preventDefault()
         addHino( titulo, numero, letra )
     }
@@ -35,7 +35,7 @@ export default function Page() {
                     <div className="sm:col-span-3">
                         <label htmlFor="numero" className="block text-sm font-medium text-gray-900">Número</label>
                         <div className="mt-2">
-                            <input type="number" value={numero} onChange={(event) => setNumero(parseInt(event.target.value))} id="numero" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"/>
+                            <input type="number" value={numero} onChange={(event) => setNumero(Number(event.target.value))} id="numero" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"/>
                         </div>
                     </div>
                 </div>
