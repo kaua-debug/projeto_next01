@@ -2,11 +2,11 @@
 
 import { addMaterias } from "@/lib/materias/materias"
 import React, { useState } from "react"
-const  addMaterias_ = (nome: string, descricao: string, anoLetivo: string) => addMaterias(nome, descricao, anoLetivo)
+const  addMaterias_ = (nome: string, descricao: string, anoLetivo: number) => addMaterias(nome, descricao, anoLetivo)
 export default function Page() {
     const [nome, setNome] = useState('')
     const [descricao, setDescricao] = useState('')
-    const [anoLetivo, setAnoLetivo] = useState('')
+    const [anoLetivo, setAnoLetivo] = useState(0)
 
     const handleSubmit = (event: any) => {
         event.preventDefault()

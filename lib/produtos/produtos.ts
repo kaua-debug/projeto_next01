@@ -8,15 +8,23 @@ export async function addProduto(
 ) {
   await pool.query(
     `insert into produtos(
+
       nome,
       valor_unitario,
       validade,
       descricao
+
     ) values (
-      '${nome}',
-      ${valorUnitario},
-      '${validade}',
-      '${descricao}'
-     )`
-  )
+        $1,
+        $2, 
+        $3,
+        $4
+     )`,
+   [
+    nome,
+    valorUnitario,
+    validade,
+    descricao
+
+   ])
 }

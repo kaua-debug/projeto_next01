@@ -9,7 +9,7 @@ export default function Page() {
     const [assunto, setAssunto] = useState('assunto')
     const [resumo, setResumo] = useState('resumo')
     const [data_de_lancamento, setData_de_lancamento] = useState('data de lançamento')
-    const [preco_sugerido, setPreco_sugerido] = useState('preço sugerido')  
+    const [preco_sugerido, setPreco_sugerido] = useState(0)  
     const handlSubmit = (event: any) => {
         event.preventDefault()
         addLivro(nome, autor, assunto, resumo, data_de_lancamento, preco_sugerido)
