@@ -7,7 +7,7 @@ export async function addCasa(
     area_construida: number, 
     quantidade_quartos: number, 
     quantidade_banheiros: number, 
-    tem_edicula: string, 
+    tem_edicula: boolean, 
     tem_churrasqueira: boolean, 
     tem_piscina: boolean, 
     valor_condominio: number, 

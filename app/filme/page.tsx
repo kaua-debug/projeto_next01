@@ -76,7 +76,7 @@ export default function Page() {
                         <label htmlFor="classificacaoEtaria" className="block text-sm font-medium text-gray-900">Classificação Etária</label>
                         <div className="mt-2">
                             <input
-                                type="text"
+                                type="number"
                                 value={classificacaoEtaria}
                                 onChange={(event) => setClassificacaoEtaria(event.target.value)}
                                 id="classificacaoEtaria"
