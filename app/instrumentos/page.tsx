@@ -5,7 +5,7 @@ import { addInstrumento } from "@/lib/instrumentos/instrumentos"
 
 export default function Page() {
     const [nome, setNome] = useState('nome')
-    const [tipo, setTipo] = useState('tipo')
+    const [tipo, setTipo] = useState('')
     const handlSubmit = (event: any) => {
         event.preventDefault()
         addInstrumento( nome, tipo)
@@ -15,9 +15,9 @@ export default function Page() {
         <form onSubmit={handlSubmit}>
             <div className="spcae-y-12">
             <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-base/7 font-semibold text-gray-900">Produtos</h2>
-                    <p className="mt-1 text-sm/6 text-gray-600">Informaçoes do produto</p>
-                </div>
+                    <h2 className="text-base/7 font-semibold text-gray-900">instrumentos</h2>
+                    <p className="mt-1 text-sm/6 text-gray-600">Informaçoes dos</p>
+                </div> instrumento
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
@@ -30,9 +30,15 @@ export default function Page() {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="valor_unitario" className="block text-sm/6 font-medium text-gray-900">Tipo</label>
+                        <label htmlFor="tipo_instrumento" className="block text-sm/6 font-medium text-gray-900">Tipo</label>
                         <div className="mt-2">
-                            <input type="text" value={tipo} onChange={(event) => setTipo(event.target.value)} name="valor_unitario" id="valor_unitario" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+                            <select name="tipo_instrumento" id="tipo_instrumento" onChange={(event) => setTipo(event.target.value)}>
+
+                                <option value="metais">metais</option>
+                                <option value="madeiras">madeiras</option>
+                                <option value="cordas">cordas</option>
+
+                            </select>
                         </div>
                     </div>
                 </div>

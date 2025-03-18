@@ -61,7 +61,7 @@ export default function Page() {
                     <div className="sm:col-span-3">
                         <label htmlFor="area_privativa" className="block text-sm/6 font-medium text-gray-900">area privativa</label>
                         <div className="mt-2">
-                            <input type="text" value={area_privativa} onChange={(event) => setArea_privativa(event.target.value)} name="first-name" id="area_privativa" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+                            <input type="number" value={area_privativa} onChange={(event) => setArea_privativa(event.target.value)} name="first-name" id="area_privativa" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ export default function Page() {
                     <div className="sm:col-span-3">
                         <label htmlFor="area_comum" className="block text-sm/6 font-medium text-gray-900">area comum</label>
                         <div className="mt-2">
-                            <input type="text" value={area_comum} onChange={(event) => setArea_comum(event.target.value)} name="first-name" id="area_comum" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
+                            <input type="number" value={area_comum} onChange={(event) => setArea_comum(event.target.value)} name="first-name" id="area_comum" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
                     </div>
                 </div>

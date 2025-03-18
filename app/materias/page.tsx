@@ -61,7 +61,7 @@ export default function Page() {
                         <label htmlFor="anoLetivo" className="block text-sm font-medium text-gray-900">Ano Letivo</label>
                         <div className="mt-2">
                             <input
-                                type="text"
+                                type="number"
                                 value={anoLetivo}
                                 onChange={(event) => setAnoLetivo(event.target.value)}
                                 id="anoLetivo"

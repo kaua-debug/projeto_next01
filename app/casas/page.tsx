@@ -31,7 +31,6 @@ export default function Page() {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">tipo</label>
                         <div className="mt-2">
                             <input type="text" value={tipo} onChange={(event:any) => setTipo(event.target.value)} name="first-name" id="tipo" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
@@ -40,7 +39,7 @@ export default function Page() {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">endereço</label>
+                        <label htmlFor="endereço" className="block text-sm/6 font-medium text-gray-900">endereço</label>
                         <div className="mt-2">
                             <input type="text" value={endereco} onChange={(event: any) => setEndereco(event.target.value)} name="first-name" id="endereco" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
@@ -49,7 +48,7 @@ export default function Page() {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">area terreno</label>
+                        <label htmlFor="area_terreno" className="block text-sm/6 font-medium text-gray-900">area terreno</label>
                         <div className="mt-2">
                             <input type="number" value={areaTerreno} onChange={(event: any) => setAreaTerreno(event.target.value)} name="first-name" id="area_terreno" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
@@ -58,7 +57,7 @@ export default function Page() {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">area construida</label>
+                        <label htmlFor="area_construida" className="block text-sm/6 font-medium text-gray-900">area construida</label>
                         <div className="mt-2">
                             <input type="number" value={areaConstruida} onChange={(event: any) => setAreaConstruida(event.target.value)} name="first-name" id="areaConstruida" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
@@ -67,7 +66,7 @@ export default function Page() {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">quartos</label>
+                        <label htmlFor="quartos" className="block text-sm/6 font-medium text-gray-900">quartos</label>
                         <div className="mt-2">
                             <input type="number" value={quartos} onChange={(event:any) => setQuartos(event.target.value)} name="first-name" id="quartos" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
@@ -76,7 +75,7 @@ export default function Page() {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">Banheiros</label>
+                        <label htmlFor="banheiros" className="block text-sm/6 font-medium text-gray-900">Banheiros</label>
                         <div className="mt-2">
                             <input type="number" value={banheiros} onChange={(event) => setBanheiros(event.target.value)} name="first-name" id="banheiros" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
@@ -85,7 +84,7 @@ export default function Page() {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">edicula</label>
+                        <label htmlFor="edicula" className="block text-sm/6 font-medium text-gray-900">edicula</label>
                         <div className="mt-2">
                             <input type="checbox" checked={edicula} onChange={(event) => setEdicula(event.target.checked)} name="first-name" id="edeicula" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
@@ -94,7 +93,7 @@ export default function Page() {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">Churrasqueira</label>
+                        <label htmlFor="churrasqueira" className="block text-sm/6 font-medium text-gray-900">Churrasqueira</label>
                         <div className="mt-2">
                             <input type="checkbox" checked ={churrasqueira} onChange={(event) => setChurrasqueira(event.target.checked)} name="first-name" id="condominio" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
@@ -103,7 +102,7 @@ export default function Page() {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">piscina</label>
+                        <label htmlFor="piscina" className="block text-sm/6 font-medium text-gray-900">piscina</label>
                         <div className="mt-2">
                             <input type="checkbox" checked={piscina} onChange={(event) => setPiscina(event.target.checked)} name="first-name" id="condominio" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
@@ -112,7 +111,7 @@ export default function Page() {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">Valor condominio</label>
+                        <label htmlFor="valor_condominio" className="block text-sm/6 font-medium text-gray-900">Valor condominio</label>
                         <div className="mt-2">
                             <input type="number" value={valorCondominio} onChange={(event) => setValorCondominio(event.target.value)} name="first-name" id="valor_condominio" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
@@ -121,7 +120,7 @@ export default function Page() {
 
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">Preço venda</label>
+                        <label htmlFor="preço_venda" className="block text-sm/6 font-medium text-gray-900">Preço venda</label>
                         <div className="mt-2">
                             <input type="number" value={precoVenda} onChange={(event) => setPrecoVenda(event.target.value)} name="first-name" id="preco_venda" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
                         </div>
