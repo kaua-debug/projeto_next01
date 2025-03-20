@@ -48,7 +48,7 @@ CREATE TABLE public.carros (
 	ano_fabricacao int NOT NULL,
 	cor varchar(50) NOT NULL,
 	quilometros_rodados int NOT NULL
-)
+);
 
 
 
@@ -90,7 +90,7 @@ CREATE TABLE computadores (
 	placa_de_video varchar(100) NULL,
 	placa_mae varchar(100) NULL,
 	fonte varchar(50) NULL,
-	armazenamento varchar(100) NULL,
+	armazenamento varchar(100) NULL
 	
 );
 
@@ -101,7 +101,7 @@ CREATE TABLE escolas (
 	nome varchar(100) NOT NULL,
 	endereco varchar(255) NULL,
 	quantidade_alunos int NOT NULL,
-	telefone varchar(15) NULL,
+	telefone varchar(15) NULL
 	
 );
 

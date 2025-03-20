@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  postgresql:
+    image: 'bitnami/postgresql:latest'
+    ports:
+      - 5433:5433
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+      POSTGRESQL_PORT_NUMBER: 5433
+#     networks:
+#       - app-tier
+# networks:
+#   app-tier:
+#     driver: bridge
