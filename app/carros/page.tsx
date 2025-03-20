@@ -1,17 +1,32 @@
 'use client';
 
-import { useState } from 'react';
-import { addCarro } from '@/lib/carros/carros';
+import { useEffect, useState } from 'react';
+import { addCarro, getCarros, removeCarros, updateCarros } from '@/lib/carros/carros';
+
+
+
+interface Carro {
+  id: number;
+  fabricante: string;
+  modelo: string;
+  anoFabricacao: number;
+  cor: string;
+  quilometrosRodados: number;
+}
+
+
 
 export default function Page() {
+  const [carros, setCarros] = useState <Carro[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [id, setId] = useState(0);
   const [fabricante, setFabricante] = useState('');
   const [modelo, setModelo] = useState('');
-  const [ano_fabricacao, setAnoFabricação] = useState('');
+  const [ano_fabricacao, setAnoFabricação] = useState(0);
   const [cor, setCor] = useState('');
-  const [quilometros_rodados, setQuilometrosRodados] = useState('');
+  const [quilometros_rodados, setQuilometrosRodados] = useState(0);
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const fetchCarros = async () => {
 
     try {
       await addCarro(fabricante, modelo, ano_fabricacao, cor, quilometros_rodados);
@@ -22,83 +37,108 @@ export default function Page() {
       alert('Erro ao cadastrar carro');
     }
   };
+  
+    useEffect(()=> {
+      fetchCarros();
+    }, []);
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label htmlFor="fabricante" className="block text-sm font-medium text-gray-900">
-          Fabricante:
-        </label>
-        <input
-          type="text"
-          id="fabricante"
-          value={fabricante}
-          onChange={(event) => setFabricante(event.target.value)}
-          className="mt-2 block w-full rounded-md border-gray-300 p-2 text-gray-900 focus:border-indigo-600"
-        />
-      </div>
+    const handleEdit = (carro: Carro) => {
 
-      <div>
-        <label htmlFor="modelo" className="block text-sm font-medium text-gray-900">
-          Modelo:
-        </label>
-        <input
-          type="text"
-          id="modelo"
-          value={modelo}
-          onChange={(event) => setModelo(event.target.value)}
-          className="mt-2 block w-full rounded-md border-gray-300 p-2 text-gray-900 focus:border-indigo-600"
-        />
-      </div>
+      setId(carro.id);
+      setFabricante(carro.fabricante);
+      setModelo(carro.modelo);
+      setAnoFabricação(carro.anoFabricacao);
+      setCor(carro.cor);
+      setQuilometrosRodados(carro.quilometrosRodados);
+      setIsModalOpen(true);
+    };
 
-      <div>
-        <label htmlFor="anoFabricação" className="block text-sm font-medium text-gray-900">
-          Ano de Fabricação:
-        </label>
-        <input
-          type="number"
-          id="anoFabricação"
-          value={ano_fabricacao}
-          onChange={(event) => setAnoFabricação(event.target.value)}
-          className="mt-2 block w-full rounded-md border-gray-300 p-2 text-gray-900 focus:border-indigo-600"
-        />
-      </div>
+    const handleRemove = async (carro: Carro) =>{
 
-      <div>
-        <label htmlFor="cor" className="block text-sm font-medium text-gray-900">
-          Cor:
-        </label>
-        <input
-          type="text"
-          id="cor"
-          value={cor}
-          onChange={(event) => setCor(event.target.value)}
-          className="mt-2 block w-full rounded-md border-gray-300 p-2 text-gray-900 focus:border-indigo-600"
-        />
-      </div>
+      await removeCarros (carro.id);
+      fetchCarros();
+    };
 
-      <div>
-        <label htmlFor="quilometrosRodados" className="block text-sm font-medium text-gray-900">
-          Quilômetros Rodados:
-        </label>
-        <input
-          type="number"
-          id="quilometrosRodados"
-          value={quilometros_rodados}
-          onChange={(event) => setQuilometrosRodados(event.target.value)}
-          className="mt-2 block w-full rounded-md border-gray-300 p-2 text-gray-900 focus:border-indigo-600"
-        />
-      </div>
+    const closeModal = () => {
+      setIsModalOpen(false);
 
-      {/* Botão de salvar */}
-      <div>
-        <button
-          type="submit"
-          className="mt-4 w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          Salvar
+    };
+
+    const handleSubmit = async (event:React.FormEvent<HTMLFormElement>)=> {
+      event.preventDefault();
+
+      try {
+        if (id === 0) {
+          await addCarro(fabricante, modelo, ano_fabricacao, cor, quilometros_rodados);
+        } else {
+          await updateCarros(id, fabricante, modelo, ano_fabricacao, cor, quilometros_rodados);
+        }
+        fetchCarros();
+        
+        closeModal();
+      } catch (error) {
+        console.error('Erro ao salvar carro:', error);
+      }
+    };
+    
+
+    
+
+    
+  
+    return (
+      <div className="container mx-auto p-4">
+        <h1 className="text-2xl font-bold mb-4">Cadastro de Carros</h1>
+  
+        <button onClick={() => handleEdit({ id: 0, fabricante: '', modelo: '', anoFabricacao: 0, cor: '', quilometrosRodados: 0 })} className="bg-blue-600 text-white px-4 py-2 rounded mb-4">
+          Adicionar Novo Carro
         </button>
+  
+        <table className="table-auto w-full border">
+          <thead>
+            <tr>
+              <th className="border px-4 py-2">Fabricante</th>
+              <th className="border px-4 py-2">Modelo</th>
+              <th className="border px-4 py-2">Ano de Fabricação</th>
+              <th className="border px-4 py-2">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {carros.map((carro) => (
+              <tr key={carro.id} className="hover:bg-gray-100">
+                <td className="border px-4 py-2">{carro.fabricante}</td>
+                <td className="border px-4 py-2">{carro.modelo}</td>
+                <td className="border px-4 py-2">{carro.anoFabricacao}</td>
+                <td className="border px-4 py-2">
+                  <button onClick={() => handleEdit(carro)} className="bg-green-600 text-white px-3 py-1 rounded mr-2">Editar</button>
+                  <button onClick={() => handleRemove(carro)} className="bg-red-600 text-white px-3 py-1 rounded">Excluir</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+  
+        {isModalOpen && (
+          <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
+            <div className="bg-white p-6 rounded shadow-lg w-96">
+              <h2 className="text-lg font-bold mb-4">Cadastrar Carro</h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <input type="text" value={fabricante} onChange={(e) => setFabricante(e.target.value)} placeholder="Fabricante" required className="w-full p-2 border rounded text-gray-900" />
+                <input type="text" value={modelo} onChange={(e) => setModelo(e.target.value)} placeholder="Modelo" className="w-full p-2 border rounded text-gray-900" />
+                <input type="date" value={ano_fabricacao} onChange={(e) => setAnoFabricação(e.target.value)} placeholder="Ano de Fabricação" className="w-full p-2 border rounded text-gray-900" required />
+                <input type="text" value={cor} onChange={(e) => setCor(e.target.value)} placeholder="Cor" className="w-full p-2 border rounded text-gray-900" />
+                <input type="number" value={quilometros_rodados} onChange={(event:any) => setQuilometrosRodados(e.target.value)} placeholder="Quilômetros Rodados" className="w-full p-2 border rounded text-gray-900" />
+                <div className="flex justify-end space-x-2">
+                  <button type="button" onClick={closeModal} className="bg-gray-400 text-white px-3 py-2 rounded">Cancelar</button>
+                  <button type="submit" className="bg-blue-600 text-white px-3 py-2 rounded">Salvar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
-    </form>
-  );
+    );
+  
+
+
 }
