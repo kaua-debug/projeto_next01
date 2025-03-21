@@ -1,36 +1,46 @@
 'use server'
-import { pool } from "@/lib/db"
-export async function addCliente(
-    nome: string,
-    endereco: string,
-    data_de_nascimento: Date,
-    numero_de_telefone: number,
-    email: string,
-    cpf: string
+
+import { pool } from '@/lib/db'
+
+export async function addCliente (
+  nome: string,
+  endereco: string,
+  data_de_nascimento: string,
+  telefone: string,
+  email: string,
+  cpf: string
 ) {
-    await pool.query(
-        `insert into cliente (
-        nome,
-        endereco,
-        data_de_nascimento ,
-        numero_de_telefone,
-        email,
-        cpf 
-        ) values (
-            $1,
-            $2,
-            $3,
-            $4,
-            $5,
-            $6 
-        )`,
-        [
-            nome,
-            endereco,
-            data_de_nascimento,
-            numero_de_telefone,
-            email,
-            cpf
-        ]
-    )
+  await pool.query(
+    `INSERT INTO cliente (nome, endereco, data_nascimento, telefone, email, cpf) 
+     VALUES ('${nome}', '${endereco}', '${data_de_nascimento}', '${telefone}', '${email}', '${cpf}')`
+  );
+}
+
+export async function getClientes () {
+  return (await pool.query(`SELECT * FROM cliente`)).rows;
+}
+
+export async function updateCliente (
+  id: number,
+  nome: string,
+  endereco: string,
+  data_de_nascimento: string,
+  telefone: string,
+  email: string,
+  cpf: string
+) {
+  await pool.query(
+    `UPDATE cliente SET
+      nome = '${nome}',
+      endereco = '${endereco}',
+      data_nascimento = '${data_de_nascimento}',
+      telefone = '${telefone}',
+      email = '${email}',
+      cpf = '${cpf}'
+    WHERE id = ${id}`
+  );
+}
+
+export async function removeCliente (id: number) {
+  await pool.query(`DELETE FROM clientes WHERE id = ${id}`);
 }
