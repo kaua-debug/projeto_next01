@@ -6,13 +6,13 @@ export async function addCliente (
   nome: string,
   endereco: string,
   data_de_nascimento: string,
-  telefone: string,
+  numero_de_telefone: string,
   email: string,
   cpf: string
 ) {
   await pool.query(
-    `INSERT INTO cliente (nome, endereco, data_nascimento, telefone, email, cpf) 
-     VALUES ('${nome}', '${endereco}', '${data_de_nascimento}', '${telefone}', '${email}', '${cpf}')`
+    `INSERT INTO cliente (nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf) 
+     VALUES ('${nome}', '${endereco}', '${data_de_nascimento}', '${numero_de_telefone}', '${email}', '${cpf}')`
   );
 }
 
@@ -25,7 +25,7 @@ export async function updateCliente (
   nome: string,
   endereco: string,
   data_de_nascimento: string,
-  telefone: string,
+  numero_de_telefone: string,
   email: string,
   cpf: string
 ) {
@@ -33,8 +33,8 @@ export async function updateCliente (
     `UPDATE cliente SET
       nome = '${nome}',
       endereco = '${endereco}',
-      data_nascimento = '${data_de_nascimento}',
-      telefone = '${telefone}',
+      data_de_nascimento = '${data_de_nascimento}',
+      numero_de_telefone = '${numero_de_telefone}',
       email = '${email}',
       cpf = '${cpf}'
     WHERE id = ${id}`

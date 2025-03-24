@@ -79,7 +79,7 @@ export default function Page() {
 
     try {
       if (id === 0) {
-        await addCliente({ nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf });
+        await addCliente ({ nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf });
       } else {
         await updateCliente(id, { nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf });
       }

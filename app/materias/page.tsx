@@ -1,86 +1,140 @@
 'use client'
+import { useEffect, useState } from "react";
+import { addMaterias, getMaterias, removeMateria, updateMateria } from "@/lib/materias/materias";
 
-import { addMaterias } from "@/lib/materias/materias"
-import React, { useState } from "react"
-const  addMaterias_ = (nome: string, descricao: string, anoLetivo: number) => addMaterias(nome, descricao, anoLetivo)
+interface Materia {
+  id: number;
+  nome: string;
+  descricao: string;
+  ano_letivo: number;
+}
+
 export default function Page() {
-    const [nome, setNome] = useState('')
-    const [descricao, setDescricao] = useState('')
-    const [anoLetivo, setAnoLetivo] = useState(0)
+  const [materias, setMaterias] = useState<Materia[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [id, setId] = useState<number | null>(null);
+  const [nome, setNome] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [ano_letivo, setAnoLetivo] = useState('');
 
-    const handleSubmit = (event: any) => {
-        event.preventDefault()
-
-        addMaterias_(nome, descricao, anoLetivo)
-        
+  const fetchMaterias = async () => {
+    try {
+      const materiasList = await getMaterias();
+      setMaterias(materiasList || []);
+    } catch (error) {
+      console.error('Erro ao buscar matérias:', error);
+      setMaterias([]);
     }
+  };
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <div className="space-y-12">
-                <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-base font-semibold text-gray-900">Cadastro de Matéria</h2>
-                    <p className="mt-1 text-sm text-gray-600">Preencha as informações abaixo para cadastrar a matéria.</p>
-                </div>
+  useEffect(() => {
+    fetchMaterias();
+  }, []);
 
-               
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-3">
-                        <label htmlFor="nome" className="block text-sm font-medium text-gray-900">Nome</label>
-                        <div className="mt-2">
-                            <input
-                                type="text"
-                                value={nome}
-                                onChange={(event) => setNome(event.target.value)}
-                                id="nome"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
-                            />
-                        </div>
-                    </div>
-                </div>
+  const handleEdit = (materia?: Materia) => {
+    if (materia) {
+      setId(materia.id);
+      setNome(materia.nome);
+      setDescricao(materia.descricao);
+      setAnoLetivo(String(materia.ano_letivo)); 
+    } else {
+      setId(null);
+      setNome('');
+      setDescricao('');
+      setAnoLetivo('');
+    }
+    setIsModalOpen(true);
+  };
+  
 
-            
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-3">
-                        <label htmlFor="descricao" className="block text-sm font-medium text-gray-900">Descrição</label>
-                        <div className="mt-2">
-                            <textarea
-                                value={descricao}
-                                onChange={(event) => setDescricao(event.target.value)}
-                                id="descricao"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
-                                rows={4}
-                            ></textarea>
-                        </div>
-                    </div>
-                </div>
 
-                
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-3">
-                        <label htmlFor="anoLetivo" className="block text-sm font-medium text-gray-900">Ano Letivo</label>
-                        <div className="mt-2">
-                            <input
-                                type="number"
-                                value={anoLetivo}
-                                onChange={(event) => setAnoLetivo(event.target.value)}
-                                id="anoLetivo"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
+  const handleRemove = async (materia: Materia) => {
 
-            <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button type="button" className="text-sm font-semibold text-gray-900">Cancelar</button>
-                <button
-                    type="submit"
-                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                    Cadastrar Matéria
-                </button>
-            </div>
-        </form>
-    )
+    if (!materia.id) return;
+
+    
+    try {
+      await removeMateria(materia.id);
+      fetchMaterias();
+    } catch (error) {
+      console.error('Erro ao remover matéria:', error);
+    }
+  };
+
+  const closeModal = () => {
+
+    setId(null);
+    setNome('');
+    setDescricao('');
+    setAnoLetivo('');
+    setIsModalOpen(false);
+
+
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      if (id === null) {
+        await addMaterias ({ nome, descricao, ano_letivo });
+      } else {
+        await updateMateria (id, { nome, descricao, ano_letivo });
+      }
+      fetchMaterias();
+      closeModal();
+    } catch (error) {
+      console.error('Erro ao salvar matéria:', error);
+    }
+  };
+
+  return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Cadastro de Matérias</h1>
+      <button onClick={() => handleEdit()} className="bg-blue-600 text-white px-4 py-2 rounded mb-4">Adicionar Nova Matéria</button>
+      {materias.length > 0 ? (
+        <table className="table-auto w-full border">
+          <thead>
+            <tr>
+              <th className="border px-4 py-2">Nome</th>
+              <th className="border px-4 py-2">Descrição</th>
+              <th className="border px-4 py-2">Ano Letivo</th>
+              <th className="border px-4 py-2">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {materias.map((materia) => (
+              <tr key={materia.id} className="hover:bg-gray-100">
+                <td className="border px-4 py-2">{materia.nome}</td>
+                <td className="border px-4 py-2">{materia.descricao}</td>
+                <td className="border px-4 py-2">{materia.ano_letivo}</td>
+                <td className="border px-4 py-2">
+                  <button onClick={() => handleEdit(materia)} className="bg-green-600 text-white px-3 py-1 rounded mr-2">Editar</button>
+                  <button onClick={() => handleRemove(materia)} className="bg-red-600 text-white px-3 py-1 rounded">Excluir</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p className="text-gray-500 mt-4">Nenhuma matéria cadastrada.</p>
+      )}
+
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg w-96">
+            <h2 className="text-lg font-bold mb-4">{id === null ? 'Cadastrar Matéria' : 'Editar Matéria'}</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome" required className="w-full p-2 border rounded text-gray-900" />
+              <input type="text" value={descricao} onChange={(e) => setDescricao(e.target.value)} placeholder="Descrição" required className="w-full p-2 border rounded text-gray-900" />
+              <input type="text" value={ano_letivo} onChange={(e) => setAnoLetivo(e.target.value)} placeholder="Ano Letivo" required className="w-full p-2 border rounded text-gray-900" />
+              <div className="flex justify-end space-x-2">
+                <button type="button" onClick={closeModal} className="bg-gray-400 text-white px-3 py-2 rounded">Cancelar</button>
+                <button type="submit" className="bg-blue-600 text-white px-3 py-2 rounded">Salvar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
