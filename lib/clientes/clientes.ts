@@ -12,7 +12,8 @@ export async function addCliente (
 ) {
   await pool.query(
     `INSERT INTO cliente (nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf) 
-     VALUES ('${nome}', '${endereco}', '${data_de_nascimento}', '${numero_de_telefone}', '${email}', '${cpf}')`
+     VALUES ($1, $2, $3, $4, $5, $6)`, 
+     [nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf]
   );
 }
 
@@ -31,16 +32,17 @@ export async function updateCliente (
 ) {
   await pool.query(
     `UPDATE cliente SET
-      nome = '${nome}',
-      endereco = '${endereco}',
-      data_de_nascimento = '${data_de_nascimento}',
-      numero_de_telefone = '${numero_de_telefone}',
-      email = '${email}',
-      cpf = '${cpf}'
-    WHERE id = ${id}`
+      nome = $1,
+      endereco = $2,
+      data_de_nascimento = $3,
+      numero_de_telefone = $4,
+      email = $5,
+      cpf = $6,
+    WHERE id = $7`,
+    [nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf, id]
   );
 }
 
 export async function removeCliente (id: number) {
-  await pool.query(`DELETE FROM clientes WHERE id = ${id}`);
+  await pool.query(`DELETE FROM clientes WHERE id = $1`, [id]);
 }

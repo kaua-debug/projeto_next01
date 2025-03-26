@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from "react";
-
 import { addCliente, getClientes, removeCliente, updateCliente } from "@/lib/clientes/clientes";
 
 interface Cliente {
@@ -27,9 +26,10 @@ export default function Page() {
   const fetchClientes = async () => {
     try {
       const clientesList = await getClientes();
-      setClientes(clientesList);
+      setClientes(clientesList || []);
     } catch (error) {
       console.error('Erro ao buscar clientes:', error);
+      setClientes([]);
     }
   };
 
@@ -79,9 +79,9 @@ export default function Page() {
 
     try {
       if (id === 0) {
-        await addCliente ({ nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf });
+        await addCliente(nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf);
       } else {
-        await updateCliente(id, { nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf });
+        await updateCliente(id, nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf);
       }
       fetchClientes();
       closeModal();
@@ -107,41 +107,28 @@ export default function Page() {
           </tr>
         </thead>
         <tbody>
-          {clientes.map((cliente) => (
-            <tr key={cliente.id} className="hover:bg-gray-100">
-              <td className="border px-4 py-2">{cliente.nome}</td>
-              <td className="border px-4 py-2">{cliente.endereco}</td>
-              <td className="border px-4 py-2">{cliente.data_de_nascimento}</td>
-              <td className="border px-4 py-2">{cliente.numero_de_telefone}</td>
-              <td className="border px-4 py-2">{cliente.email}</td>
-              <td className="border px-4 py-2">{cliente.cpf}</td>
-              <td className="border px-4 py-2">
-                <button onClick={() => handleEdit(cliente)} className="bg-green-600 text-white px-3 py-1 rounded mr-2">Editar</button>
-                <button onClick={() => handleRemove(cliente)} className="bg-red-600 text-white px-3 py-1 rounded">Excluir</button>
-              </td>
+          {Array.isArray(clientes) && clientes.length > 0 ? (
+            clientes.map((cliente) => (
+              <tr key={cliente.id} className="hover:bg-gray-100">
+                <td className="border px-4 py-2">{cliente.nome}</td>
+                <td className="border px-4 py-2">{cliente.endereco}</td>
+                <td className="border px-4 py-2">{cliente.data_de_nascimento?.toString()}</td>
+                <td className="border px-4 py-2">{cliente.numero_de_telefone}</td>
+                <td className="border px-4 py-2">{cliente.email}</td>
+                <td className="border px-4 py-2">{cliente.cpf}</td>
+                <td className="border px-4 py-2">
+                  <button onClick={() => handleEdit(cliente)} className="bg-green-600 text-white px-3 py-1 rounded mr-2">Editar</button>
+                  <button onClick={() => handleRemove(cliente)} className="bg-red-600 text-white px-3 py-1 rounded">Excluir</button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={7} className="text-center border px-4 py-2">Nenhum cliente encontrado</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg w-96">
-            <h2 className="text-lg font-bold mb-4">{id === 0 ? 'Cadastrar Cliente' : 'Editar Cliente'}</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome" required className="w-full p-2 border rounded text-gray-900" />
-              <input type="text" value={endereco} onChange={(e) => setEndereco(e.target.value)} placeholder="Endereço" required className="w-full p-2 border rounded text-gray-900" />
-              <input type="date" value={data_de_nascimento} onChange={(e) => setDataDeNascimento(e.target.value)} required className="w-full p-2 border rounded text-gray-900" />
-              <input type="tel" value={numero_de_telefone} onChange={(e) => setNumeroDeTelefone(e.target.value)} placeholder="Telefone" required className="w-full p-2 border rounded text-gray-900" />
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required className="w-full p-2 border rounded text-gray-900" />
-              <input type="text" value={cpf} onChange={(e) => setCPF(e.target.value)} placeholder="CPF" required className="w-full p-2 border rounded text-gray-900" />
-              <div className="flex justify-end space-x-2">
-                <button type="button" onClick={closeModal} className="bg-gray-400 text-white px-3 py-2 rounded">Cancelar</button>
-                <button type="submit" className="bg-blue-600 text-white px-3 py-2 rounded">Salvar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

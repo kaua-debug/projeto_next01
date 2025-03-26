@@ -9,7 +9,8 @@ export async function addInstrutores(
     
     ) {
     await pool.query(`insert into instrutores(nome, especialidade, data_nascimento, endereco, comum
-        ) values ('${nome}', '${especialidade}', '${data_nascimento}', '${endereco}', '${comum}')`
+        ) values ($1, $2, $3, $4, $5)`,
+         [nome, especialidade, data_nascimento, endereco, comum]
         );
 }
 

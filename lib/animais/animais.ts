@@ -1,48 +1,33 @@
 'use server'
-import { Pool } from "pg";
-import { pool } from "../db"
-export async function addAnimal(nome: string, nome_cientifico: string, especie: string, grupo: string) {
-    await pool.query(`insert into animais (nome, nome_cientifico, especie, grupo
-        
-        
-        ) values (
-        
-        
-        ('${nome}', '${nome_cientifico}', '${especie}', '${grupo}'
-        )`);
+import { pool } from "../db";
 
+export async function addAnimal(nome: string, nomeCientifico: string, especie: string, grupo: string) {
+    await pool.query(
+        `INSERT INTO animais (nome, nome_cientifico, especie, grupo) 
+         VALUES ($1, $2, $3, $4)`,
+        [nome, nomeCientifico, especie, grupo]
+    );
 }
 
-        export async function updateAnimais(
+export async function getAnimais() {
+    return (await pool.query(`SELECT * FROM animais`)).rows;
+}
 
-         id: number,
-         nome: string,
-         nomeCientifico: string,
-         especie: string,
-         grupo: string
+export async function updateAnimal(id: number, nome: string, nomeCientifico: string, especie: string, grupo: string) {
+    await pool.query(
+        `UPDATE animais SET 
+         nome = $1, 
+         nome_cientifico = $2, 
+         especie = $3, 
+         grupo = $4 
+         WHERE id = $5`,
+        [nome, nomeCientifico, especie, grupo, id]
+    );
+}
 
-        ) {
-
-        await pool.query (
-
-                `update animais SET
-                
-                nome = '${nome}'
-                nome_cientifico = '${nomeCientifico}'
-                especie = '${especie}'
-                grupo = '${grupo}'
-                where id ${id} 
-                
-                `
-
-        );
-
-        }
-
-        export async function removeAimal(id:number) {
-
-            await pool.query(``DELETE from animais where id = ${})
-            
-        }
-            
-        
+export async function removeAnimal(id: number) {
+    await pool.query(
+        `DELETE FROM animais WHERE id = $1`,
+        [id]
+    );
+}

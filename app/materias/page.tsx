@@ -6,7 +6,7 @@ interface Materia {
   id: number;
   nome: string;
   descricao: string;
-  ano_letivo: number;
+  ano_letivo: string;
 }
 
 export default function Page() {
@@ -36,7 +36,7 @@ export default function Page() {
       setId(materia.id);
       setNome(materia.nome);
       setDescricao(materia.descricao);
-      setAnoLetivo(String(materia.ano_letivo)); 
+      setAnoLetivo(String(materia.ano_letivo)); // Garantir que ano_letivo seja uma string
     } else {
       setId(null);
       setNome('');
@@ -45,14 +45,10 @@ export default function Page() {
     }
     setIsModalOpen(true);
   };
-  
-
 
   const handleRemove = async (materia: Materia) => {
-
     if (!materia.id) return;
 
-    
     try {
       await removeMateria(materia.id);
       fetchMaterias();
@@ -62,23 +58,21 @@ export default function Page() {
   };
 
   const closeModal = () => {
-
     setId(null);
     setNome('');
     setDescricao('');
     setAnoLetivo('');
     setIsModalOpen(false);
-
-
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      const materiaData = { nome, descricao, ano_letivo: Number(ano_letivo) }; 
       if (id === null) {
-        await addMaterias ({ nome, descricao, ano_letivo });
+        await addMaterias(nome, descricao, ano_letivo);
       } else {
-        await updateMateria (id, { nome, descricao, ano_letivo });
+        await updateMateria(id, nome, descricao, ano_letivo); 
       }
       fetchMaterias();
       closeModal();
