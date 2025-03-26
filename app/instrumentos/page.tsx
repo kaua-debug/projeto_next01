@@ -1,53 +1,113 @@
-'use client'
+'use client';
 
-import { useState } from "react"
-import { addInstrumento } from "@/lib/instrumentos/instrumentos"
+import { useEffect, useState } from 'react';
+import { addInstrumento, getInstrumentos, removeInstrumento, updateInstrumento } from '@/lib/instrumentos/instrumentos';
+
+interface Instrumento {
+  id: number;
+  nome: string;
+  tipo: string;
+}
 
 export default function Page() {
-    const [nome, setNome] = useState('nome')
-    const [tipo, setTipo] = useState('')
-    const handlSubmit = (event: any) => {
-        event.preventDefault()
-        addInstrumento( nome, tipo)
+  const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [id, setId] = useState(0);
+  const [nome, setNome] = useState('');
+  const [tipo, setTipo] = useState('');
+
+  const fetchInstrumentos = async () => {
+    try {
+      const data = await getInstrumentos();
+      setInstrumentos(data);
+    } catch (error) {
+      console.error('Erro ao buscar instrumentos:', error);
     }
+  };
 
-    return (
-        <form onSubmit={handlSubmit}>
-            <div className="spcae-y-12">
-            <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-base/7 font-semibold text-gray-900">instrumentos</h2>
-                    <p className="mt-1 text-sm/6 text-gray-600">Informaçoes dos</p>
-                </div> instrumento
+  useEffect(() => {
+    fetchInstrumentos();
+  }, []);
 
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-3">
-                        <label htmlFor="nome_produto" className="block text-sm/6 font-medium text-gray-900">Nome do Instrumento</label>
-                        <div className="mt-2">
-                            <input type="text" value={nome} onChange={(event) => setNome(event.target.value)} name="first-name" id="instrumento" autoComplete="given-name" className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
-                        </div>
-                    </div>
-                </div>
+  const handleEdit = ({ id, nome, tipo }: Instrumento) => {
+    setId(id);
+    setNome(nome);
+    setTipo(tipo);
+    setIsModalOpen(true);
+  };
 
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-3">
-                        <label htmlFor="tipo_instrumento" className="block text-sm/6 font-medium text-gray-900">Tipo</label>
-                        <div className="mt-2">
-                            <select name="tipo_instrumento" id="tipo_instrumento" onChange={(event) => setTipo(event.target.value)}>
+  const handleRemove = async ({ id }: Instrumento) => {
+    await removeInstrumento(id);
+    fetchInstrumentos();
+  };
 
-                                <option value="metais">metais</option>
-                                <option value="madeiras">madeiras</option>
-                                <option value="cordas">cordas</option>
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      if (id === 0) {
+        await addInstrumento(nome, tipo);
+      } else {
+        await updateInstrumento(id, nome, tipo);
+      }
+      fetchInstrumentos();
+      closeModal();
+    } catch (error) {
+      console.error('Erro ao salvar instrumento:', error);
+    }
+  };
 
-            <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button type="button" className="text-sm/6 font-semibold text-gray-900">Cancel</button>
-                <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
-            </div>
-        </form>
-    )
+  return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Cadastro de Instrumentos</h1>
+
+      <button
+        onClick={() => handleEdit({ id: 0, nome: '', tipo: '' })}
+        className="bg-blue-600 text-white px-4 py-2 rounded mb-4"
+      >
+        Adicionar Novo Instrumento
+      </button>
+
+      <table className="table-auto w-full border">
+        <thead>
+          <tr>
+            <th className="border px-4 py-2">Nome</th>
+            <th className="border px-4 py-2">Tipo</th>
+            <th className="border px-4 py-2">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {instrumentos.map((instrumento) => (
+            <tr key={instrumento.id} className="hover:bg-gray-100">
+              <td className="border px-4 py-2">{instrumento.nome}</td>
+              <td className="border px-4 py-2">{instrumento.tipo}</td>
+              <td className="border px-4 py-2">
+                <button onClick={() => handleEdit(instrumento)} className="bg-green-600 text-white px-3 py-1 rounded mr-2">Editar</button>
+                <button onClick={() => handleRemove(instrumento)} className="bg-red-600 text-white px-3 py-1 rounded">Excluir</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg w-96">
+            <h2 className="text-lg font-bold mb-4">{id === 0 ? 'Cadastrar Instrumento' : 'Editar Instrumento'}</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome" required className="w-full p-2 border rounded text-gray-900" />
+              <input type="text" value={tipo} onChange={(e) => setTipo(e.target.value)} placeholder="Tipo" required className="w-full p-2 border rounded text-gray-900" />
+              <div className="flex justify-end space-x-2">
+                <button type="button" onClick={closeModal} className="bg-gray-400 text-white px-3 py-2 rounded">Cancelar</button>
+                <button type="submit" className="bg-blue-600 text-white px-3 py-2 rounded">Salvar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
