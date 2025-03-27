@@ -1,102 +1,112 @@
-'use client'
+'use client';
 
-import { useState } from "react"
-import { addFilmes } from "@/lib/filmes/filmes"
+import { useEffect, useState } from 'react';
+import { addFilmes, getFilmes, removeFilme, updateFilmes } from '@/lib/filmes/filmes';
+
+interface Filme {
+  id: number;
+  nome: string;
+  diretor: string;
+  assunto: string;
+  classificacaoEtaria: number;
+}
 
 export default function Page() {
-    const [nome, setNome] = useState('')
-    const [diretor, setDiretor] = useState('')
-    const [assunto, setAssunto] = useState('')
-    const [classificacaoEtaria, setClassificacaoEtaria] = useState('')
+  const [filmes, setFilmes] = useState<Filme[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [id, setId] = useState(0);
+  const [nome, setNome] = useState('');
+  const [diretor, setDiretor] = useState('');
+  const [assunto, setAssunto] = useState('');
+  const [classificacaoEtaria, setClassificacaoEtaria] = useState(0);
 
-    const handlSubmit = (event: any) => {
-        event.preventDefault()
-        addFilmes(nome, diretor, assunto, classificacaoEtaria )
-            } 
+  const fetchFilmes = async () => {
+    try {
+      const data = await getFilmes();
+      setFilmes(data);
+    } catch (error) {
+      console.error('Error fetching filmes:', error);
+    }
+  };
 
-    return (
-        <form onSubmit={handlSubmit}>
-            <div className="space-y-12">
-                <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-base font-semibold text-gray-900">Cadastro de Filme</h2>
-                    <p className="mt-1 text-sm text-gray-600">Preencha as informações abaixo para cadastrar o filme.</p>
-                </div>
+  useEffect(() => {
+    fetchFilmes();
+  }, []);
 
-                {/* Nome do Filme */}
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-3">
-                        <label htmlFor="nome" className="block text-sm font-medium text-gray-900">Nome</label>
-                        <div className="mt-2">
-                            <input
-                                type="text"
-                                value={nome}
-                                onChange={(event) => setNome(event.target.value)}
-                                id="nome"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
-                            />
-                        </div>
-                    </div>
-                </div>
+  const handleEdit = ({ id, nome, diretor, assunto, classificacaoEtaria }: Filme) => {
+    setId(id);
+    setNome(nome);
+    setDiretor(diretor);
+    setAssunto(assunto);
+    setClassificacaoEtaria(classificacaoEtaria);
+    setIsModalOpen(true);
+  };
 
-                {/* Diretor do Filme */}
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-3">
-                        <label htmlFor="diretor" className="block text-sm font-medium text-gray-900">Diretor</label>
-                        <div className="mt-2">
-                            <input
-                                type="text"
-                                value={diretor}
-                                onChange={(event) => setDiretor(event.target.value)}
-                                id="diretor"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
-                            />
-                        </div>
-                    </div>
-                </div>
+  const handleRemove = async ({ id }: Filme) => {
+    await removeFilme(id);
+    fetchFilmes();
+  };
 
-                {/* Assunto do Filme */}
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-3">
-                        <label htmlFor="assunto" className="block text-sm font-medium text-gray-900">Assunto</label>
-                        <div className="mt-2">
-                            <input
-                                type="text"
-                                value={assunto}
-                                onChange={(event) => setAssunto(event.target.value)}
-                                id="assunto"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
-                            />
-                        </div>
-                    </div>
-                </div>
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
-                
-                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <div className="sm:col-span-3">
-                        <label htmlFor="classificacaoEtaria" className="block text-sm font-medium text-gray-900">Classificação Etária</label>
-                        <div className="mt-2">
-                            <input
-                                type="number"
-                                value={classificacaoEtaria}
-                                onChange={(event) => setClassificacaoEtaria(event.target.value)}
-                                id="classificacaoEtaria"
-                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      if (id === 0) await addFilmes(nome, diretor, assunto, classificacaoEtaria);
+      else await updateFilmes(id, nome, diretor, assunto, classificacaoEtaria);
+      fetchFilmes();
+      closeModal();
+    } catch (error) {
+      console.error('Error adding filme:', error);
+    }
+  };
 
-            
-            <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button type="button" className="text-sm font-semibold text-gray-900">Cancelar</button>
-                <button
-                    type="submit"
-                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                    Cadastrar Filme
-                </button>
-            </div>
-        </form>
-    )
+  return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Cadastro de Filmes</h1>
+      <button onClick={() => handleEdit({ id: 0, nome: '', diretor: '', assunto: '', classificacaoEtaria: 0 })} className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500">
+        Adicionar Novo Filme
+      </button>
+      <table className="table-auto w-full mt-4">
+        <thead>
+          <tr>
+            <th className="border px-4 py-2">Nome</th>
+            <th className="border px-4 py-2">Diretor</th>
+            <th className="border px-4 py-2">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filmes.map((filme) => (
+            <tr key={filme.id} className="hover:bg-gray-100 cursor-pointer">
+              <td className="border px-4 py-2">{filme.nome}</td>
+              <td className="border px-4 py-2">{filme.diretor}</td>
+              <td className="border px-4 py-2">
+                <button className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white" onClick={() => handleEdit(filme)}>Editar</button>
+                <button className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white ml-2" onClick={() => handleRemove(filme)}>Excluir</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {isModalOpen && (
+        <div className="fixed inset-0 z-10 bg-gray-500 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg p-8 w-full max-w-md">
+            <h2 className="text-base font-semibold mb-4">Novo Filme</h2>
+            <form onSubmit={handleSubmit}>
+              <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
+              <input type="text" value={diretor} onChange={(e) => setDiretor(e.target.value)} placeholder="Diretor" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
+              <input type="text" value={assunto} onChange={(e) => setAssunto(e.target.value)} placeholder="Assunto" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
+              <input type="number" value={classificacaoEtaria} onChange={(e) => setClassificacaoEtaria(Number(e.target.value))} placeholder="Classificação Etária" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
+              <div className="flex justify-end mt-4">
+                <button type="button" className="mr-2 text-sm text-gray-900" onClick={closeModal}>Cancelar</button>
+                <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm text-white">Salvar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

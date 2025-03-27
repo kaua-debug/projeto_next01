@@ -6,7 +6,7 @@ export async function addCliente (
   nome: string,
   endereco: string,
   data_de_nascimento: string,
-  numero_de_telefone: string,
+  numero_de_telefone: number,
   email: string,
   cpf: string
 ) {
@@ -26,7 +26,7 @@ export async function updateCliente (
   nome: string,
   endereco: string,
   data_de_nascimento: string,
-  numero_de_telefone: string,
+  numero_de_telefone: number,
   email: string,
   cpf: string
 ) {
@@ -44,5 +44,5 @@ export async function updateCliente (
 }
 
 export async function removeCliente (id: number) {
-  await pool.query(`DELETE FROM clientes WHERE id = $1`, [id]);
+  await pool.query(`DELETE FROM cliente WHERE id = $1`, [id]);
 }
