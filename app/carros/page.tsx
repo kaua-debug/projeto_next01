@@ -125,7 +125,7 @@ export default function Page() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input type="text" value={fabricante} onChange={(e) => setFabricante(e.target.value)} placeholder="Fabricante" required className="w-full p-2 border rounded text-gray-900" />
                 <input type="text" value={modelo} onChange={(e) => setModelo(e.target.value)} placeholder="Modelo" className="w-full p-2 border rounded text-gray-900" />
-                <input type="date" value={ano_fabricacao} onChange={(e) => setAnoFabricação(e.target.value)} placeholder="Ano de Fabricação" className="w-full p-2 border rounded text-gray-900" required />
+                <input type="number" value={ano_fabricacao} onChange={(e) => setAnoFabricação(e.target.valueAsNumber)} placeholder="Ano de Fabricação" className="w-full p-2 border rounded text-gray-900" required />
                 <input type="text" value={cor} onChange={(e) => setCor(e.target.value)} placeholder="Cor" className="w-full p-2 border rounded text-gray-900" />
                 <input type="number" value={quilometros_rodados} onChange={(event:any) => setQuilometrosRodados(e.target.value)} placeholder="Quilômetros Rodados" className="w-full p-2 border rounded text-gray-900" />
                 <div className="flex justify-end space-x-2">
