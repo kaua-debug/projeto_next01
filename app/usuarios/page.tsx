@@ -8,7 +8,7 @@ interface Usuario {
   nome: string;
   apelido: string;
   email: string;
-  senha?: string; // Evitar exibir senhas no estado
+  senha?: string; 
 }
 
 export default function Page() {
@@ -38,7 +38,7 @@ export default function Page() {
     setNome(usuario.nome);
     setApelido(usuario.apelido);
     setEmail(usuario.email);
-    setSenha(''); // Senha não deve ser carregada no formulário de edição
+    setSenha(''); 
     setIsModalOpen(true);
   };
 
