@@ -4,56 +4,56 @@ import { pool } from "../db"
 export async function addCasa(
     tipo: string,
     endereco: string,
-    areaTerreno: number,
-    areaConstruida: number,
+    area_terreno: number,
+    areaconstruida: number,
     quartos: number,
     banheiros: number,
-    temEdicula: boolean,
-    temChurrasqueira: boolean,
-    temPiscina: boolean,
-    valorCondominio: number | null,
-    precoVenda: number
+    edicula: boolean,
+    churrasqueira: boolean,
+    piscina: boolean,
+    valorcondominio: number | null,
+    precovenda: number
 ) {
     await pool.query(
-        `INSERT INTO casas (
-            tipo, endereco, area_terreno, area_construida, 
+        `INSERT INTO casa (
+            tipo, endereco, area_terreno, areaconstruida, 
             quantidade_quartos, quantidade_banheiros, 
-            tem_edicula, tem_churrasqueira, tem_piscina, 
-            valor_condominio, preco_venda
+            edicula, churrasqueira, piscina, piscina, 
+            valorcondominio, precovenda
         ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
-        [tipo, endereco, areaTerreno, areaConstruida, quartos, banheiros, temEdicula, temChurrasqueira, temPiscina, valorCondominio, precoVenda]
+        [tipo, endereco, area_terreno, areaconstruida, quartos, banheiros, edicula, churrasqueira, piscina, piscina, valorcondominio, precovenda]
     );
 }
 
 export async function getCasas() {
-    return (await pool.query(`SELECT * FROM casas`)).rows;
+    return (await pool.query(`SELECT * FROM casa`)).rows;
 }
 
 export async function updateCasa(
     id: number,
     tipo: string,
     endereco: string,
-    areaTerreno: number,
-    areaConstruida: number,
+    area_terreno: number,
+    areaconstruida: number,
     quartos: number,
     banheiros: number,
-    temEdicula: boolean,
-    temChurrasqueira: boolean,
-    temPiscina: boolean,
-    valorCondominio: number | null,
-    precoVenda: number
+    edicula: boolean,
+    churrasqueira: boolean,
+    piscina: boolean,
+    valorcondominio: number | null,
+    precovenda: number
 ) {
     await pool.query(
-        `UPDATE casas SET 
-            tipo = $1, endereco = $2, area_terreno = $3, area_construida = $4,
+        `UPDATE casa SET 
+            tipo = $1, endereco = $2, area_terreno = $3, areaconstruida = $4,
             quantidade_quartos = $5, quantidade_banheiros = $6,
-            tem_edicula = $7, tem_churrasqueira = $8, tem_piscina = $9,
-            valor_condominio = $10, preco_venda = $11
+            edicula = $7, churrasqueira = $8, piscina = $9,
+            valorcondominio = $10, precovenda = $11
         WHERE id = $12`,
-        [tipo, endereco, areaTerreno, areaConstruida, quartos, banheiros, temEdicula, temChurrasqueira, temPiscina, valorCondominio, precoVenda, id]
+        [tipo, endereco, area_terreno, areaconstruida, quartos, banheiros, edicula, churrasqueira, piscina, valorcondominio, precovenda, id]
     );
 }
 
 export async function removeCasa(id: number) {
-    await pool.query(`DELETE FROM casas WHERE id = $1`, [id]);
+    await pool.query(`DELETE FROM casa WHERE id = $1`, [id]);
 }

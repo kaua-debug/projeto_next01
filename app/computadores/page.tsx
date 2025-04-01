@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from "react"
-import { addComputador } from "@/lib/computadores/computadores"
+import { useEffect, useState } from "react"
+import { addComputador, getComputadores, removeComputador, updateComputador } from "@/lib/computadores/computadores"
 
 export default function Page() {
+    const [computador, setComputadores] = useState<
     const [descricao, setDescricao] = useState('')
     const [cpu, setCpu] = useState('')
     const [memoria, setMemoria] = useState('')
