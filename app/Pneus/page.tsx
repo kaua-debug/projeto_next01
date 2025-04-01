@@ -1,88 +1,88 @@
-'use client';
+    'use client';
 
-import { useEffect, useState } from 'react';
-import { addPneu, getPneus, removePneu, updatePneu } from '@/lib/Pneus/Pneus';
+        import { useEffect, useState } from 'react';
+        import { addPneu, getPneus, removePneu, updatePneu } from '@/lib/Pneus/Pneus';
 
-interface Pneu {
-  id: number;
-  marca: string;
-  modelo: string;
-  largura: number;
-  raio: number;
-  espessura: number;
-  cargaMaxima: number;
-}
+        interface Pneu {
+          id: number;
+          marca: string;
+          modelo: string;
+          largura: number;
+          raio: number;
+          espessura: number;
+          cargaMaxima: number;
+        }
 
-export default function Page() {
-  const [pneus, setPneus] = useState<Pneu[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [id, setId] = useState(0);
-  const [marca, setMarca] = useState('');
-  const [modelo, setModelo] = useState('');
-  const [largura, setLargura] = useState(0);
-  const [raio, setRaio] = useState(0);
-  const [espessura, setEspessura] = useState(0);
-  const [cargaMaxima, setCargaMaxima] = useState(0);
+        export default function Page() {
+          const [pneus, setPneus] = useState<Pneu[]>([]);
+          const [isModalOpen, setIsModalOpen] = useState(false);
+          const [id, setId] = useState(0);
+          const [marca, setMarca] = useState('');
+          const [modelo, setModelo] = useState('');
+          const [largura, setLargura] = useState(0);
+          const [raio, setRaio] = useState(0);
+          const [espessura, setEspessura] = useState(0);
+          const [cargaMaxima, setCargaMaxima] = useState(0);
+        
 
-  // Função para buscar os pneus
-  const fetchPneus = async () => {
-    try {
-      const data = await getPneus();
-      setPneus(data);
-    } catch (error) {
-      console.error('Erro ao buscar pneus:', error);
-    }
-  };
+          const fetchPneus = async () => {
+            try {
+              const data = await getPneus();
+              setPneus(data);
+            } catch (error) {
+              console.error('Erro ao buscar pneus:', error);
+            }
+          };
+        
 
-  // Carregar os pneus quando o componente for montado
-  useEffect(() => {
-    fetchPneus();
-  }, []);
+          useEffect(() => {
+            fetchPneus();
+          }, []);
+        
 
-  // Função para preencher os campos para edição
-  const handleEdit = (pneu: Pneu) => {
-    setId(pneu.id);
-    setMarca(pneu.marca);
-    setModelo(pneu.modelo);
-    setLargura(pneu.largura);
-    setRaio(pneu.raio);
-    setEspessura(pneu.espessura);
-    setCargaMaxima(pneu.cargaMaxima);
-    setIsModalOpen(true);
-  };
+          const handleEdit = (pneu: Pneu) => {
+            setId(pneu.id);
+            setMarca(pneu.marca);
+            setModelo(pneu.modelo);
+            setLargura(pneu.largura);
+            setRaio(pneu.raio);
+            setEspessura(pneu.espessura);
+            setCargaMaxima(pneu.cargaMaxima);
+            setIsModalOpen(true);
+          };
+        
 
-  // Função para remover um pneu
-  const handleRemove = async (id: number) => {
-    await removePneu(id);
-    fetchPneus();
-  };
+          const handleRemove = async (id: number) => {
+            await removePneu(id);
+            fetchPneus();
+          };
+        
 
-  // Fechar o modal de edição/cadastro
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+          const closeModal = () => {
+            setIsModalOpen(false);
+          };
+        
 
-  // Função de envio de formulário
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      if (id === 0) {
-        await addPneu(marca, modelo, largura, raio, espessura, cargaMaxima);
-      } else {
-        await updatePneu(id, marca, modelo, largura, raio, espessura, cargaMaxima);
-      }
-      fetchPneus();
-      closeModal();
-    } catch (error) {
-      console.error('Erro ao salvar pneu:', error);
-    }
-  };
+          const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+            try {
+              if (id === 0) {
+                await addPneu(marca, modelo, largura, raio, espessura, cargaMaxima);
+              } else {
+                await updatePneu(id, marca, modelo, largura, raio, espessura, cargaMaxima);
+              }
+              fetchPneus();
+              closeModal();
+            } catch (error) {
+              console.error('Erro ao salvar pneu:', error);
+            }
+          };
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Cadastro de Pneus</h1>
 
-      {/* Botão para abrir o modal de cadastro */}
+  
       <div className="mb-4">
         <button
           onClick={() => handleEdit({ id: 0, marca: '', modelo: '', largura: 0, raio: 0, espessura: 0, cargaMaxima: 0 })}
@@ -92,7 +92,7 @@ export default function Page() {
         </button>
       </div>
 
-      {/* Tabela para listar pneus */}
+  
       <div className="overflow-x-auto">
         <table className="table-auto w-full">
           <thead>
@@ -135,7 +135,7 @@ export default function Page() {
         </table>
       </div>
 
-      {/* Modal para editar ou cadastrar pneu */}
+  
       {isModalOpen && (
         <div className="fixed inset-0 z-10 overflow-y-auto bg-gray-500 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-8 w-full max-w-md">
