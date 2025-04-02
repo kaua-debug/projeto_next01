@@ -208,55 +208,55 @@ export default function Page() {
                             </div>
 
                             <div className="grid grid-cols-3 gap-4">
-                                <div>
+                                <div className="col-span-3">
                                     <label className="block text-sm font-medium text-gray-900">Área do Terreno</label>
                                     <input type="number" value={areaTerreno} onChange={(e) => setAreaTerreno(parseInt(e.target.value))} className="w-full rounded-md border-gray-300 px-3 py-1.5" required />
                                 </div>
-                                <div>
+                                <div className="col-span-3">
                                     <label className="block text-sm font-medium text-gray-900">Área Construída</label>
                                     <input type="number" value={areaConstruida} onChange={(e) => setAreaConstruida(parseInt(e.target.value))} className="w-full rounded-md border-gray-300 px-3 py-1.5" required />
                                 </div>
-                                <div>
+                                <div className="col-span-3">
                                     <label className="block text-sm font-medium text-gray-900">Quartos</label>
                                     <input type="number" value={quartos} onChange={(e) => setQuartos(parseInt(e.target.value))} className="w-full rounded-md border-gray-300 px-3 py-1.5" required />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-3 gap-4">
-                                <div>
+                                <div className="col-span-3">
                                     <label className="block text-sm font-medium text-gray-900">Banheiros</label>
                                     <input type="number" value={banheiros} onChange={(e) => setBanheiros(parseInt(e.target.value))} className="w-full rounded-md border-gray-300 px-3 py-1.5" required />
                                 </div>
-                                <div>
+                                <div className="col-span-3">
                                     <label className="block text-sm font-medium text-gray-900">Valor Condomínio</label>
                                     <input type="number" value={valorCondominio} onChange={(e) => setValorCondominio(parseInt(e.target.value))} className="w-full rounded-md border-gray-300 px-3 py-1.5" required />
                                 </div>
-                                <div>
+                                <div className="col-span-3">
                                     <label className="block text-sm font-medium text-gray-900">Preço Venda</label>
                                     <input type="number" value={precoVenda} onChange={(e) => setPrecoVenda(parseInt(e.target.value))} className="w-full rounded-md border-gray-300 px-3 py-1.5" required />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-3 gap-4">
-                                <div>
+                                <div className="col-span-3"> 
                                     <label className="block text-sm font-medium text-gray-900">Edícula</label>
                                     <input type="checkbox" checked={edicula} onChange={(e) => setEdicula(e.target.checked)} className="w-full rounded-md border-gray-300 px-3 py-1.5" />
                                 </div>
-                                <div>
+                                <div className="col-span-3">
                                     <label className="block text-sm font-medium text-gray-900">Churrasqueira</label>
                                     <input type="checkbox" checked={churrasqueira} onChange={(e) => setChurrasqueira(e.target.checked)} className="w-full rounded-md border-gray-300 px-3 py-1.5" />
                                 </div>
-                                <div>
+                                <div className="col-span-3">
                                     <label className="block text-sm font-medium text-gray-900">Piscina</label>
                                     <input type="checkbox" checked={piscina} onChange={(e) => setPiscina(e.target.checked)} className="w-full rounded-md border-gray-300 px-3 py-1.5" />
                                 </div>
                             </div>
-
                             <div className="mt-6 flex items-center justify-end gap-x-6">
                                 <button type="button" className="text-sm font-semibold text-gray-900" onClick={closeModal}>Cancelar</button>
                                 <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500"onClick={closeModal}>Salvar</button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             )}
