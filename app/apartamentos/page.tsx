@@ -229,7 +229,7 @@ export default function Page() {
                     required
                   />
                 </div>
-                <div className="col-span-1">
+                <div className="col-span-2">
                   <label className="block text-sm font-medium text-gray-900">Churrasqueira</label>
                   <input
                     type="checkbox"
@@ -238,7 +238,7 @@ export default function Page() {
                     className="w-full rounded-md border-gray-300"
                   />
                 </div>
-                <div className="col-span-1">
+                <div className="col-span-2">
                   <label className="block text-sm font-medium text-gray-900">Piscina</label>
                   <input
                     type="checkbox"
