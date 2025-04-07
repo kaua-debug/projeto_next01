@@ -2,14 +2,14 @@
 import { pool } from "../db"
 export async function addHino(titulo: string, numero: number, letra: string) {
     await pool.query(
-        `insert into hino (
+        `insert into hinos (
             titulo, numero, letra
         ) values ('${titulo}', ${numero}, '${letra}')`
         )
 }
 
 export async function getHinos() {
-    return (await pool.query(`select * from hino`)).rows;
+    return (await pool.query(`select * from hinos`)).rows;
 }
 
 export async function updateHino(
@@ -20,7 +20,7 @@ export async function updateHino(
 ) {
     await pool.query(
         `
-        update hino set 
+        update hinos set 
             titulo = '${titulo}',
             letra = '${letra}',
             numero = ${numero}
@@ -31,5 +31,5 @@ export async function updateHino(
 export async function removeHino(
     id: number
 ) {
-    await pool.query(`delete from hino where id = ${id}`);
+    await pool.query(`delete from hinos where id = ${id}`);
 }
