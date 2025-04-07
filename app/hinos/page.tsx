@@ -1,129 +1,210 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { addPneu, getPneus, removePneu, updatePneu } from '@/lib/Pneus/Pneus';
 
-interface Pneu {
-  id: number;
-  marca: string;
-  modelo: string;
-  largura: number;
-  raio: number;
-  espessura: number;
-  cargaMaxima: number;
+import { useEffect, useState } from "react"
+import { addHino, getHinos, removeHino, updateHino } from "@/lib/hino/hino"
+
+interface Hino {
+    id: number;
+    titulo: string;
+    numero: number;
+    letra: string;
 }
 
+
 export default function Page() {
-  const [pneus, setPneus] = useState<Pneu[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [id, setId] = useState(0);
-  const [marca, setMarca] = useState('');
-  const [modelo, setModelo] = useState('');
-  const [largura, setLargura] = useState(0);
-  const [raio, setRaio] = useState(0);
-  const [espessura, setEspessura] = useState(0);
-  const [cargaMaxima, setCargaMaxima] = useState(0);
+    const [hinos, setHinos] = useState<Hino[]>([])
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [id, setId] = useState(0)
+    const [titulo, setTitulo] = useState('titulo')
+    const [numero, setNumero] = useState(0)
+    const [letra, setLetra] = useState('letra') 
 
-  const fetchPneus = async () => {
-    try {
-      const data = await getPneus();
-      setPneus(data);
-    } catch (error) {
-      console.error('Erro ao buscar pneus:', error);
+
+    const fetchHinos = async () => {
+        try {
+            const data = await getHinos()
+            setHinos(data)
+        } catch (error) {
+            console.error(' Erro fetching hinos:',error)
+        }
     }
-  };
 
-  useEffect(() => {
-    fetchPneus();
-  }, []);
+    useEffect(() => {
+        fetchHinos()
+    }, [])
 
-  const handleEdit = (pneu: Pneu) => {
-    setId(pneu.id);
-    setMarca(pneu.marca);
-    setModelo(pneu.modelo);
-    setLargura(pneu.largura);
-    setRaio(pneu.raio);
-    setEspessura(pneu.espessura);
-    setCargaMaxima(pneu.cargaMaxima);
-    setIsModalOpen(true);
-  };
-
-  const handleRemove = async (pneu: Pneu) => {
-    await removePneu(pneu.id);
-    fetchPneus();
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      if (id === 0) {
-        await addPneu(marca, modelo, largura, raio, espessura, cargaMaxima);
-      } else {
-        await updatePneu(id, marca, modelo, largura, raio, espessura, cargaMaxima);
-      }
-      fetchPneus();
-      closeModal();
-    } catch (error) {
-      console.error('Erro ao salvar pneu:', error);
+    const handleEdit = ({id, titulo, numero, letra}: Hino) => {
+        setId(id)
+        setTitulo(titulo)
+        setNumero(numero)
+        setLetra(letra)
+        setIsModalOpen(true)
     }
-  };
+    
+    const handleRemove = async ({id}: Hino) => {
+        await removeHino(id)
+        fetchHinos()
+    }
 
-  return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Cadastro de Pneus</h1>
-      <button onClick={() => handleEdit({ id: 0, marca: '', modelo: '', largura: 0, raio: 0, espessura: 0, cargaMaxima: 0 })} className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500">
-        Adicionar Novo Pneu
-      </button>
-      <table className="table-auto w-full mt-4">
-        <thead>
-          <tr>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Largura</th>
-            <th>Raio</th>
-            <th>Espessura</th>
-            <th>Carga Máxima</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pneus.map((pneu) => (
-            <tr key={pneu.id}>
-              <td>{pneu.marca}</td>
-              <td>{pneu.modelo}</td>
-              <td>{pneu.largura}</td>
-              <td>{pneu.raio}</td>
-              <td>{pneu.espessura}</td>
-              <td>{pneu.cargaMaxima}</td>
-              <td>
-                <button onClick={() => handleEdit(pneu)} className="mr-2 bg-yellow-500 px-2 py-1 text-white">Editar</button>
-                <button onClick={() => handleRemove(pneu)} className="bg-red-500 px-2 py-1 text-white">Excluir</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg">
-            <h2>Dados do Pneu</h2>
-            <form onSubmit={handleSubmit}>
-              <input type="text" value={marca} onChange={(e) => setMarca(e.target.value)} placeholder="Marca" required />
-              <input type="text" value={modelo} onChange={(e) => setModelo(e.target.value)} placeholder="Modelo" required />
-              <input type="number" value={largura} onChange={(e) => setLargura(Number(e.target.value))} placeholder="Largura" required />
-              <input type="number" value={raio} onChange={(e) => setRaio(Number(e.target.value))} placeholder="Raio" required />
-              <input type="number" value={espessura} onChange={(e) => setEspessura(Number(e.target.value))} placeholder="Espessura" required />
-              <input type="number" value={cargaMaxima} onChange={(e) => setCargaMaxima(Number(e.target.value))} placeholder="Carga Máxima" required />
-              <button type="submit">Salvar</button>
-              <button type="button" onClick={closeModal}>Cancelar</button>
-            </form>
-          </div>
+    const closeModal = () => {
+        setIsModalOpen(false)
+    }
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        try {
+            if(id === 0)
+                await addHino(titulo, numero, letra)
+            else 
+                await updateHino(id, titulo, numero, letra)
+            fetchHinos()
+            closeModal()
+        } catch (error) {
+            console.error('Error adding hino:',  error)
+        }
+    }
+
+
+
+    return (
+        <div className="container mx-auto p-4">
+            <h1 className="text-2xl font-bold mb-4">Cadastro de Hinos</h1>
+
+            <div className="mb-4">
+                <button
+                onClick={() => handleEdit({id: 0, titulo: '', numero: 0, letra:''})}
+                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                    Adicionar Novo Hino
+                </button>
+            </div>
+
+            <div className="overFlow-x-auto">
+                <table className="table-auto w-full">
+                    <thead>
+                        <tr>
+                            <th className="border px-4 py-2">Numero</th>
+                            <th className="border px-4 py-2">Titulo</th>
+                            <th className="border px-4 py-2">Açoes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {hinos.map((hino) => (
+                            <tr 
+                                key={hino.id}
+                                className="hover:bg-gray-100 cursor-pointer"
+                            >
+                                <td className="border px-4 py-2">{hino.numero}</td>
+                                <td className="border px-4 py-2">{hino.titulo}</td>
+                                <td className="border px-4 py-2">
+                                    <button
+                                        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                        onClick={() => handleEdit(hino)}
+                                    >
+                                        Editar
+                                    </button>
+                                    <button
+                                        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                        onClick={() => handleRemove(hino)}
+                                    >
+                                        Excluir
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            {/* Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-10 overflow-y-auto bg-gray-500 bg-opacity-50 flex items-center justify-center">
+                    <div className="bg-white rounded-lg p-8 w-full max-w-md">
+                        <h2 className="text-base font-semibold text-gray-900 md-4">
+                            Novo Hino
+                        </h2>
+                        <form onSubmit={handleSubmit}>
+                            <div className="space-y-4">
+                                <div className="grid grid-cols-1 gap-x-6 gap-y-2">
+                                    <div>
+                                        <label 
+                                        htmlFor="titulo"
+                                        className="block text-sm font-medium text-gray-900"
+                                        >
+                                            Titulo
+                                        </label>
+                                        <div className="mt-1">
+                                            <input type="text"
+                                            value={titulo}
+                                            onChange={(event) => setTitulo(event.target.value)}
+                                            id="titulo"
+                                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
+                                            required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label 
+                                        htmlFor="numero"
+                                        className="block text-sm font-medium text-gray-900"
+                                        >
+                                            Numero
+                                        </label>
+                                        <div className="mt-1">
+                                            <input 
+                                                type="number" 
+                                                value={numero}
+                                                onChange={(event) => setNumero(Number(event.target.value))}
+                                                id="numero"
+                                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
+                                                required
+                                                />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label 
+                                            htmlFor="letra"
+                                            className="block text-sm font-medium text-gray-900"
+                                            >
+                                                Letra
+                                        </label>
+                                        <div className="mt-1">
+                                            <textarea 
+                                                value={letra}
+                                                onChange={(event) => setLetra(event.target.value)}
+                                                name="letra" 
+                                                id="letra"
+                                                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
+                                                rows={4}
+                                                required
+                                                ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="mt-6 flex items-center justify-end gap-x-6">
+                                <button
+                                    type="button"
+                                    className="text-sm font-semibold text-gray-900"
+                                    onClick={closeModal}
+                                    >
+                                        Cancelar
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                >
+                                    Salvar
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            )}
+
         </div>
-      )}
-    </div>
-  );
+    )
 }
