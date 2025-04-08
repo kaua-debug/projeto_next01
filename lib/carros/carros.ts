@@ -33,8 +33,7 @@ export async function addCarro(
 
 export async function getCarros (){
 
-const result = await pool.query(`select * from carros`);
-return result.rows;
+  return (await pool.query(`select * from carros`)).rows;
 
 }
 

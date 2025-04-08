@@ -8,7 +8,7 @@ interface Usuario {
   nome: string;
   apelido: string;
   email: string;
-  senha?: string; 
+  senha: string; 
 }
 
 export default function Page() {
@@ -24,21 +24,23 @@ export default function Page() {
     fetchUsuarios();
   }, []);
 
-  const fetchUsuarios = async () => {
-    try {
-      const data = await getUsuarios();
-      setUsuarios(data);
-    } catch (error) {
-      console.error('Erro ao buscar usuários:', error);
-    }
-  };
+const fetchUsuarios = async () => {
+  try {
+    const data = await getUsuarios();
+    console.log('Usuários recebidos:', data); // <- veja o que está vindo
+    setUsuarios(data || []);
+  } catch (error) {
+    console.error('Erro ao buscar usuários:', error);
+  }
+};
+
 
   const handleEdit = (usuario: Usuario) => {
     setId(usuario.id);
     setNome(usuario.nome);
     setApelido(usuario.apelido);
     setEmail(usuario.email);
-    setSenha(''); 
+    setSenha(usuario.senha); 
     setIsModalOpen(true);
   };
 
@@ -78,7 +80,8 @@ export default function Page() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Cadastro de Usuários</h1>
-      <button onClick={() => handleEdit({ id: 0, nome: '', apelido: '', email: '' })} className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500">
+      <button onClick={() => handleEdit({ id: 0, nome: '', apelido: '', email: '', senha: '' })} 
+      className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500">
         Adicionar Novo Usuário
       </button>
       <table className="table-auto w-full mt-4">
@@ -96,6 +99,7 @@ export default function Page() {
               <td>{usuario.nome}</td>
               <td>{usuario.apelido}</td>
               <td>{usuario.email}</td>
+              <td>{usuario.id}</td>
               <td>
                 <button onClick={() => handleEdit(usuario)} className="mr-2 bg-yellow-500 px-2 py-1 text-white">Editar</button>
                 <button onClick={() => handleRemove(usuario.id)} className="bg-red-500 px-2 py-1 text-white">Excluir</button>

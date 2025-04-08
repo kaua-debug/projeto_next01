@@ -61,7 +61,7 @@ export default function Page() {
             fetchHinos()
             closeModal()
         } catch (error) {
-            console.error('Error adding hino:',  error)
+            console.error('Erro ao encontrar hino:',  error)
         }
     }
 
@@ -117,7 +117,7 @@ export default function Page() {
                 </table>
             </div>
 
-            {/* Modal */}
+            
             {isModalOpen && (
                 <div className="fixed inset-0 z-10 overflow-y-auto bg-gray-500 bg-opacity-50 flex items-center justify-center">
                     <div className="bg-white rounded-lg p-8 w-full max-w-md">

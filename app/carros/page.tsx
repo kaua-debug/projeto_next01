@@ -29,12 +29,10 @@ export default function Page() {
   const fetchCarros = async () => {
 
     try {
-      await addCarro(fabricante, modelo, ano_fabricacao, cor, quilometros_rodados);
-      alert('Carro cadastrado com sucesso!');
-      // Aqui você pode limpar os campos ou mostrar outras mensagens
+        const data = await getCarros()
+        setCarros(data)
     } catch (error) {
-      console.error('Erro ao cadastrar carro:', error);
-      alert('Erro ao cadastrar carro');
+      console.error('erro ao encontrar carros')
     }
   };
   
@@ -127,7 +125,7 @@ export default function Page() {
                 <input type="text" value={modelo} onChange={(e) => setModelo(e.target.value)} placeholder="Modelo" className="w-full p-2 border rounded text-gray-900" />
                 <input type="number" value={ano_fabricacao} onChange={(e) => setAnoFabricação(e.target.valueAsNumber)} placeholder="Ano de Fabricação" className="w-full p-2 border rounded text-gray-900" required />
                 <input type="text" value={cor} onChange={(e) => setCor(e.target.value)} placeholder="Cor" className="w-full p-2 border rounded text-gray-900" />
-                <input type="number" value={quilometros_rodados} onChange={(event:any) => setQuilometrosRodados(e.target.value)} placeholder="Quilômetros Rodados" className="w-full p-2 border rounded text-gray-900" />
+                <input type="number" value={quilometros_rodados} onChange={(e) => setQuilometrosRodados(e.target.valueAsNumber)} placeholder="quilometros rodados" className="w-full p-2 border rounded text-gray-900" required />
                 <div className="flex justify-end space-x-2">
                   <button type="button" onClick={closeModal} className="bg-gray-400 text-white px-3 py-2 rounded">Cancelar</button>
                   <button type="submit" className="bg-blue-600 text-white px-3 py-2 rounded">Salvar</button>
