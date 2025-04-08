@@ -8,7 +8,7 @@ interface alunos {
   nome: string;
   nome_pai: string;
   nome_mae: string;
-  data_nascimento: string;
+  data_nascimento: Date;
   cor_pele: string;
 }
 
@@ -25,6 +25,9 @@ export default function Page() {
   const fetchAlunos = async () => {
     try {
       const data = await getAlunos();
+      data.map((aluno) => {
+        aluno.dataNascimento = aluno.dataNascimento.toISOString().split('T')[0] || ''
+      })
       setAlunos(data);
     } catch (error) {
       console.error('Erro ao buscar alunos:', error);
@@ -41,7 +44,7 @@ export default function Page() {
     set_nome(nome)
     setnome_pai(nome_pai)
     setnome_mae(nome_mae)
-    setdata_nascimento(data_nascimento)
+    setdata_nascimento(Date)
     setcor_pele(cor_pele)
     setIsModalOpen(true)
   }
@@ -74,8 +77,8 @@ export default function Page() {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Cadastro de Alunos</h1>
 
-      <button onClick={() => handleEdit({ id: 0, nome: '', nome_pai: '', nome_mae: '', data_nascimento: '', cor_pele: '' })}
-       className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+      <button onClick={() => handleEdit({ id: 0, nome: '', nome_pai: '', nome_mae: '', data_nascimento: Date, cor_pele: '' })}
+        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
         Adicionar Novo Aluno
       </button>
 
@@ -102,7 +105,7 @@ export default function Page() {
           ))}
         </tbody>
       </table>
-
++
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
           <div className="bg-white p-6 rounded shadow-lg w-96">
