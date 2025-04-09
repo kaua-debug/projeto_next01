@@ -9,9 +9,9 @@ interface Carro {
   id: number;
   fabricante: string;
   modelo: string;
-  anoFabricacao: number;
+  ano_fabricacao: number;
   cor: string;
-  quilometrosRodados: number;
+  quilometros_rodados: number;
 }
 
 
@@ -24,7 +24,7 @@ export default function Page() {
   const [modelo, setModelo] = useState('');
   const [ano_fabricacao, setAnoFabricação] = useState(0);
   const [cor, setCor] = useState('');
-  const [quilometros_rodados, setQuilometrosRodados] = useState(0);
+  const [quilometros_rodados, setquilometros_rodados] = useState(0);
 
   const fetchCarros = async () => {
 
@@ -45,9 +45,9 @@ export default function Page() {
       setId(carro.id);
       setFabricante(carro.fabricante);
       setModelo(carro.modelo);
-      setAnoFabricação(carro.anoFabricacao);
+      setAnoFabricação(carro.ano_fabricacao);
       setCor(carro.cor);
-      setQuilometrosRodados(carro.quilometrosRodados);
+      setquilometros_rodados(carro.quilometros_rodados);
       setIsModalOpen(true);
     };
 
@@ -88,7 +88,7 @@ export default function Page() {
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4">Cadastro de Carros</h1>
   
-        <button onClick={() => handleEdit({ id: 0, fabricante: '', modelo: '', anoFabricacao: 0, cor: '', quilometrosRodados: 0 })} className="bg-blue-600 text-white px-4 py-2 rounded mb-4">
+        <button onClick={() => handleEdit({ id: 0, fabricante: '', modelo: '', ano_fabricacao: 0, cor: '', quilometros_rodados: 0 })} className="bg-blue-600 text-white px-4 py-2 rounded mb-4">
           Adicionar Novo Carro
         </button>
   
@@ -98,7 +98,7 @@ export default function Page() {
               <th className="border px-4 py-2">Fabricante</th>
               <th className="border px-4 py-2">Modelo</th>
               <th className="border px-4 py-2">Ano de Fabricação</th>
-              <th className="border px-4 py-2">Ações</th>
+              <th className="border px-4 py-2">quilometros Rodados</th>
             </tr>
           </thead>
           <tbody>
@@ -106,7 +106,7 @@ export default function Page() {
               <tr key={carro.id} className="hover:bg-gray-100">
                 <td className="border px-4 py-2">{carro.fabricante}</td>
                 <td className="border px-4 py-2">{carro.modelo}</td>
-                <td className="border px-4 py-2">{carro.anoFabricacao}</td>
+                <td className="border px-4 py-2">{carro.ano_fabricacao}</td>
                 <td className="border px-4 py-2">
                   <button onClick={() => handleEdit(carro)} className="bg-green-600 text-white px-3 py-1 rounded mr-2">Editar</button>
                   <button onClick={() => handleRemove(carro)} className="bg-red-600 text-white px-3 py-1 rounded">Excluir</button>
@@ -125,7 +125,7 @@ export default function Page() {
                 <input type="text" value={modelo} onChange={(e) => setModelo(e.target.value)} placeholder="Modelo" className="w-full p-2 border rounded text-gray-900" />
                 <input type="number" value={ano_fabricacao} onChange={(e) => setAnoFabricação(e.target.valueAsNumber)} placeholder="Ano de Fabricação" className="w-full p-2 border rounded text-gray-900" required />
                 <input type="text" value={cor} onChange={(e) => setCor(e.target.value)} placeholder="Cor" className="w-full p-2 border rounded text-gray-900" />
-                <input type="number" value={quilometros_rodados} onChange={(e) => setQuilometrosRodados(e.target.valueAsNumber)} placeholder="quilometros rodados" className="w-full p-2 border rounded text-gray-900" required />
+                <input type="number" value={quilometros_rodados} onChange={(e) => setquilometros_rodados(e.target.valueAsNumber)} placeholder="quilometros rodados" className="w-full p-2 border rounded text-gray-900" required />
                 <div className="flex justify-end space-x-2">
                   <button type="button" onClick={closeModal} className="bg-gray-400 text-white px-3 py-2 rounded">Cancelar</button>
                   <button type="submit" className="bg-blue-600 text-white px-3 py-2 rounded">Salvar</button>

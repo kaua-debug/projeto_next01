@@ -6,7 +6,7 @@ import { addAnimal, getAnimais, removeAnimal, updateAnimal } from "@/lib/animais
 interface Animal {
     id: number;
     nome: string;
-    nomeCientifico: string;
+    nome_cientifico: string;
     especie: string;
     grupo: string;
 }
@@ -16,7 +16,7 @@ export default function Page() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [id, setId] = useState(0);
     const [nome, setNome] = useState('');
-    const [nomeCientifico, setNomeCientifico] = useState('');
+    const [nome_cientifico, setnome_cientifico] = useState('');
     const [especie, setEspecie] = useState('');
     const [grupo, setGrupo] = useState('');
 
@@ -33,10 +33,10 @@ export default function Page() {
         fetchAnimais();
     }, []);
 
-    const handleEdit = ({ id, nome, nomeCientifico, especie, grupo }: Animal) => {
+    const handleEdit = ({ id, nome, nome_cientifico, especie, grupo }: Animal) => {
         setId(id);
         setNome(nome);
-        setNomeCientifico(nomeCientifico);
+        setnome_cientifico(nome_cientifico);
         setEspecie(especie);
         setGrupo(grupo);
         setIsModalOpen(true);
@@ -56,9 +56,9 @@ export default function Page() {
     
       try {
         if (id === 0) {
-          addAnimal(nome, nomeCientifico, especie, grupo);
+          addAnimal(nome, nome_cientifico, especie, grupo);
         } else {
-          await updateAnimal(id, nome, nomeCientifico, especie, grupo);
+          await updateAnimal(id, nome, nome_cientifico, especie, grupo);
         }
     
         fetchAnimais();
@@ -73,7 +73,7 @@ export default function Page() {
         <div className="container mx-auto p-4">
             <h1 className="text-2xl font- mb-4">Cadastro de Animais</h1>
             <button
-                onClick={() => handleEdit({ id: 0, nome: '', nomeCientifico: '', especie: '', grupo: '' })}
+                onClick={() => handleEdit({ id: 0, nome: '', nome_cientifico: '', especie: '', grupo: '' })}
                 className="bg-blue-600 text-white px-4 py-2 rounded"
             >
                 Adicionar Novo Animal
@@ -93,7 +93,7 @@ export default function Page() {
                     {animais.map((animal) => (
                         <tr key={animal.id} className="hover:bg-gray-100">
                             <td className="border px-4 py-2">{animal.nome}</td>
-                            <td className="border px-4 py-2">{animal.nomeCientifico}</td>
+                            <td className="border px-4 py-2">{animal.nome_cientifico}</td>
                             <td className="border px-4 py-2">{animal.especie}</td>
                             <td className="border px-4 py-2">{animal.grupo}</td>
                             <td className="border px-4 py-2">
@@ -111,7 +111,7 @@ export default function Page() {
                         <h2 className="bg-blue-600 text-white px-4 py-2 rounded">Cadastrar Animal</h2>
                         <form onSubmit={handleSubmit}>
                             <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome" className="block w-full mb-2 p-2 border rounded" required />
-                            <input type="text" value={nomeCientifico} onChange={(e) => setNomeCientifico(e.target.value)} placeholder="Nome Científico" className="block w-full mb-2 p-2 border rounded" required />
+                            <input type="text" value={nome_cientifico} onChange={(e) => setnome_cientifico(e.target.value)} placeholder="Nome Científico" className="block w-full mb-2 p-2 border rounded" required />
                             <input type="text" value={especie} onChange={(e) => setEspecie(e.target.value)} placeholder="Espécie" className="block w-full mb-2 p-2 border rounded" required />
                             <input type="text" value={grupo} onChange={(e) => setGrupo(e.target.value)} placeholder="Grupo" className="block w-full mb-4 p-2 border rounded" required />
                             <div className="flex justify-end gap-4">

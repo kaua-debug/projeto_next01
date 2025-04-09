@@ -7,14 +7,14 @@ interface Apartamento {
   id: number;
   tipo: string;
   condominio: string;
-  areaPrivativa: number;
-  areaComum: number;
-  qtdQuartos: number;
-  qtdBanheiros: number;
-  temChurrasqueira: boolean;
-  temPiscina: boolean;
-  valorCondominio: number;
-  precoVenda: number;
+  area_privativa: number;
+  area_comum: number;
+  quantidade_de_quartos: number;
+  quantidade_de_banheiros: number;
+  tem_churrasqueira: boolean;
+  tem_piscina: boolean;
+  valor_do_condominio: number;
+  preco_de_venda: number;
 }
 
 export default function Page() {
@@ -23,14 +23,14 @@ export default function Page() {
   const [id, setId] = useState(0);
   const [tipo, setTipo] = useState('');
   const [condominio, setCondominio] = useState('');
-  const [areaPrivativa, setAreaPrivativa] = useState(0);
-  const [areaComum, setAreaComum] = useState(0);
-  const [qtdQuartos, setQtdQuartos] = useState(0);
-  const [qtdBanheiros, setQtdBanheiros] = useState(0);
-  const [temChurrasqueira, setTemChurrasqueira] = useState(false);
-  const [temPiscina, setTemPiscina] = useState(false);
-  const [valorCondominio, setValorCondominio] = useState(0);
-  const [precoVenda, setPrecoVenda] = useState(0);
+  const [area_privativa, setarea_privativa] = useState(0);
+  const [area_comum, setarea_comum] = useState(0);
+  const [quantidade_de_quartos, setquantidade_de_quartos] = useState(0);
+  const [quantidade_de_banheiros, setquantidade_de_banheiros] = useState(0);
+  const [tem_churrasqueira, settem_churrasqueira] = useState(false);
+  const [tem_piscina, settem_piscina] = useState(false);
+  const [valor_do_condominio, setvalor_do_condominio] = useState(0);
+  const [preco_de_venda, setpreco_de_venda] = useState(0);
 
   
   const fetchApartamentos = async () => {
@@ -51,14 +51,14 @@ export default function Page() {
     setId(apartamento.id);
     setTipo(apartamento.tipo);
     setCondominio(apartamento.condominio);
-    setAreaPrivativa(apartamento.areaPrivativa);
-    setAreaComum(apartamento.areaComum);
-    setQtdQuartos(apartamento.qtdQuartos);
-    setQtdBanheiros(apartamento.qtdBanheiros);
-    setTemChurrasqueira(apartamento.temChurrasqueira);
-    setTemPiscina(apartamento.temPiscina);
-    setValorCondominio(apartamento.valorCondominio);
-    setPrecoVenda(apartamento.precoVenda);    
+    setarea_privativa(apartamento.area_privativa);
+    setarea_comum(apartamento.area_comum);
+    setquantidade_de_quartos(apartamento.quantidade_de_quartos);
+    setquantidade_de_banheiros(apartamento.quantidade_de_banheiros);
+    settem_churrasqueira(apartamento.tem_churrasqueira);
+    settem_piscina(apartamento.tem_piscina);
+    setvalor_do_condominio(apartamento.valor_do_condominio);
+    setpreco_de_venda(apartamento.preco_de_venda);    
     setIsModalOpen(true);
   };
 
@@ -77,9 +77,9 @@ export default function Page() {
     event.preventDefault();
     try {
       if (id === 0) {
-        await addApartamento(tipo, condominio, areaPrivativa, areaComum, qtdQuartos, qtdBanheiros, temChurrasqueira, temPiscina, valorCondominio, precoVenda);
+        await addApartamento(tipo, condominio, area_privativa, area_comum, quantidade_de_quartos, quantidade_de_banheiros, tem_churrasqueira, tem_piscina, valor_do_condominio, preco_de_venda);
       } else {
-        await updateApartamento(id, tipo, condominio, areaPrivativa, areaComum, qtdQuartos, qtdBanheiros, temChurrasqueira, temPiscina, valorCondominio, precoVenda);
+        await updateApartamento(id, tipo, condominio, area_privativa, area_comum, quantidade_de_quartos, quantidade_de_banheiros, tem_churrasqueira, tem_piscina, valor_do_condominio, preco_de_venda);
       }
       fetchApartamentos();
       closeModal();
@@ -95,7 +95,7 @@ export default function Page() {
 
       <div className="mb-4">
         <button
-          onClick={() => handleEdit({ id: 0, tipo: '', condominio: '', areaPrivativa: 0, areaComum: 0, qtdQuartos: 0, qtdBanheiros: 0, temChurrasqueira: false, temPiscina: false, valorCondominio: 0, precoVenda: 0 })}
+          onClick={() => handleEdit({ id: 0, tipo: '', condominio: '', area_privativa: 0, area_comum: 0, quantidade_de_quartos: 0, quantidade_de_banheiros: 0, tem_churrasqueira: false, tem_piscina: false, valor_do_condominio: 0, preco_de_venda: 0 })}
           className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           Adicionar Novo Apartamento
@@ -125,14 +125,14 @@ export default function Page() {
               <tr key={apartamento.id}>
                 <td className="border px-4 py-2">{apartamento.tipo}</td>
                 <td className="border px-4 py-2">{apartamento.condominio}</td>
-                <td className="border px-4 py-2">{apartamento.areaPrivativa}</td>
-                <td className="border px-4 py-2">{apartamento.areaComum}</td>
-                <td className="border px-4 py-2">{apartamento.qtdQuartos}</td>
-                <td className="border px-4 py-2">{apartamento.qtdBanheiros}</td>
-                <td className="border px-4 py-2">{apartamento.temChurrasqueira ? 'Sim' : 'Não'}</td>
-                <td className="border px-4 py-2">{apartamento.temPiscina ? 'Sim' : 'Não'}</td>
-                <td className="border px-4 py-2">{apartamento.valorCondominio}</td>
-                <td className="border px-4 py-2">{apartamento.precoVenda}</td>
+                <td className="border px-4 py-2">{apartamento.area_privativa}</td>
+                <td className="border px-4 py-2">{apartamento.area_comum}</td>
+                <td className="border px-4 py-2">{apartamento.quantidade_de_quartos}</td>
+                <td className="border px-4 py-2">{apartamento.quantidade_de_banheiros}</td>
+                <td className="border px-4 py-2">{apartamento.tem_churrasqueira ? 'Sim' : 'Não'}</td>
+                <td className="border px-4 py-2">{apartamento.tem_piscina ? 'Sim' : 'Não'}</td>
+                <td className="border px-4 py-2">{apartamento.valor_do_condominio}</td>
+                <td className="border px-4 py-2">{apartamento.preco_de_venda}</td>
                 <td className="border px-4 py-2">
                   <button
                     onClick={() => handleEdit(apartamento)}
@@ -189,8 +189,8 @@ export default function Page() {
                   <label className="block text-sm font-medium text-gray-900">Área Privativa</label>
                   <input
                     type="number"
-                    value={areaPrivativa}
-                    onChange={(e) => setAreaPrivativa(Number(e.target.value))}
+                    value={area_privativa}
+                    onChange={(e) => setarea_privativa(Number(e.target.value))}
                     className="w-full rounded-md border-gray-300 px-3 py-1.5"
                     required
                   />
@@ -199,8 +199,8 @@ export default function Page() {
                   <label className="block text-sm font-medium text-gray-900">Área Comum</label>
                   <input
                     type="number"
-                    value={areaComum}
-                    onChange={(e) => setAreaComum(Number(e.target.value))}
+                    value={area_comum}
+                    onChange={(e) => setarea_comum(Number(e.target.value))}
                     className="w-full rounded-md border-gray-300 px-3 py-1.5"
                     required
                   />
@@ -209,8 +209,8 @@ export default function Page() {
                   <label className="block text-sm font-medium text-gray-900">Quartos</label>
                   <input
                     type="number"
-                    value={qtdQuartos}
-                    onChange={(e) => setQtdQuartos(Number(e.target.value))}
+                    value={quantidade_de_quartos}
+                    onChange={(e) => setquantidade_de_quartos(Number(e.target.value))}
                     className="w-full rounded-md border-gray-300 px-3 py-1.5"
                     required
                   />
@@ -223,8 +223,8 @@ export default function Page() {
                   <label className="block text-sm font-medium text-gray-900">Banheiros</label>
                   <input
                     type="number"
-                    value={qtdBanheiros}
-                    onChange={(e) => setQtdBanheiros(Number(e.target.value))}
+                    value={quantidade_de_banheiros}
+                    onChange={(e) => setquantidade_de_banheiros(Number(e.target.value))}
                     className="w-full rounded-md border-gray-300 px-3 py-1.5"
                     required
                   />
@@ -233,8 +233,8 @@ export default function Page() {
                   <label className="block text-sm font-medium text-gray-900">Churrasqueira</label>
                   <input
                     type="checkbox"
-                    checked={temChurrasqueira}
-                    onChange={(e) => setTemChurrasqueira(e.target.checked)}
+                    checked={tem_churrasqueira}
+                    onChange={(e) => settem_churrasqueira(e.target.checked)}
                     className="w-full rounded-md border-gray-300"
                   />
                 </div>
@@ -242,8 +242,8 @@ export default function Page() {
                   <label className="block text-sm font-medium text-gray-900">Piscina</label>
                   <input
                     type="checkbox"
-                    checked={temPiscina}
-                    onChange={(e) => setTemPiscina(e.target.checked)}
+                    checked={tem_piscina}
+                    onChange={(e) => settem_piscina(e.target.checked)}
                     className="w-full rounded-md border-gray-300"
                   />
                 </div>
@@ -254,8 +254,8 @@ export default function Page() {
                   <label className="block text-sm font-medium text-gray-900">Valor do Condomínio</label>
                   <input
                     type="number"
-                    value={valorCondominio}
-                    onChange={(e) => setValorCondominio(Number(e.target.value))}
+                    value={valor_do_condominio}
+                    onChange={(e) => setvalor_do_condominio(Number(e.target.value))}
                     className="w-full rounded-md border-gray-300 px-3 py-1.5"
                     required
                   />
@@ -264,8 +264,8 @@ export default function Page() {
                   <label className="block text-sm font-medium text-gray-900">Preço de Venda</label>
                   <input
                     type="number"
-                    value={precoVenda}
-                    onChange={(e) => setPrecoVenda(Number(e.target.value))}
+                    value={preco_de_venda}
+                    onChange={(e) => setpreco_de_venda(Number(e.target.value))}
                     className="w-full rounded-md border-gray-300 px-3 py-1.5"
                     required
                   />

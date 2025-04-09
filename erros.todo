@@ -1,25 +1,25 @@
 Erros:
     Alunos:
-        ☐ salvar edicao nao funciona
+        ✔ salvar edicao nao funciona @done(25-04-09 13:46)
         formulario de edicao nao carrega os campos:
-            ☐ nome do pai
-            ☐ nome da mae
-            ☐ data
-            ☐ cor da pele
+            ✔ nome do pai @done(25-04-09 13:41)
+            ✔ nome da mae @done(25-04-09 13:41)
+            ✔ data @done(25-04-09 13:41)
+            ✔ cor da pele @done(25-04-09 13:41)
     Animais:
-        ☐ formulario de edicao nao carrega o campo nome cientifico
-        ☐ nome cientifico nao aparece na tabela de registros
+        ✔ formulario de edicao nao carrega o campo nome cientifico 1 @done(25-04-09 14:02)
+        ✔ nome cientifico nao aparece na tabela de registros @done(25-04-09 14:04)
 
     Apartamentos:
-        ☐ salvar edicao nao funciona
+        ✔ salvar edicao nao funciona @done(25-04-09 14:36)
         formulario de edicao nao carrega os campos:
-            ☐ area privativa
-            ☐ area comum
-            ☐ quartos
-            ☐ banheiros
-            ☐ churrasqueira
-            ☐ valor de condominio
-            ☐ preco de venda
+            ✔ area privativa @done(25-04-09 14:06)
+            ✔ area comum @done(25-04-09 14:06)
+            ✔ quartos @done(25-04-09 14:06)
+            ✔ banheiros @done(25-04-09 14:08)
+            ✔ churrasqueira @done(25-04-09 14:10)
+            ✔ valor de condominio @done(25-04-09 14:11)
+            ✔ preco de venda @done(25-04-09 14:10)
     Carros:
         ✔ ao carregar a pagina nao deveria mostrar mensage "Carro cadastrado com sucesso!" ok @done(25-04-08 16:00)
         ✔ ultimo campo numerico nao permite alterar o valor   ok @done(25-04-08 16:00)

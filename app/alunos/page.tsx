@@ -26,7 +26,7 @@ export default function Page() {
     try {
       const data = await getAlunos();
       data.map((aluno) => {
-        aluno.dataNascimento = aluno.dataNascimento.toISOString().split('T')[0] || ''
+        aluno.data_nascimento = aluno.data_nascimento.toISOString().split('T')[0] || ''
       })
       setAlunos(data);
     } catch (error) {
@@ -44,7 +44,7 @@ export default function Page() {
     set_nome(nome)
     setnome_pai(nome_pai)
     setnome_mae(nome_mae)
-    setdata_nascimento(Date)
+    setdata_nascimento(data_nascimento)
     setcor_pele(cor_pele)
     setIsModalOpen(true)
   }
@@ -77,7 +77,7 @@ export default function Page() {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Cadastro de Alunos</h1>
 
-      <button onClick={() => handleEdit({ id: 0, nome: '', nome_pai: '', nome_mae: '', data_nascimento: Date, cor_pele: '' })}
+      <button onClick={() => handleEdit({ id: 0, nome: '', nome_pai: '', nome_mae: '', data_nascimento: '', cor_pele: '' })}
         className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
         Adicionar Novo Aluno
       </button>
