@@ -7,30 +7,30 @@ import { addCasa, getCasas, updateCasa, removeCasa } from "@/lib/casas/casa"
 interface Casa {
     tipo: string,
     endereco: string,
-    areaTerreno: number,
-    areaConstruida: number,
+    area_terreno: number,
+    areaconstruida: number,
     quartos: number,
     banheiros: number,
     edicula: boolean,
     churrasqueira: boolean,
     piscina: boolean,
-    valorCondominio: number,
-    precoVenda: number,
+    valorcondominio: number,
+    precovenda: number,
     id: number,
 }
 
 export default function Page() {
     const [tipo, setTipo] = useState('');
     const [endereco, setEndereco] = useState('');
-    const [areaTerreno, setAreaTerreno] = useState(0);
-    const [areaConstruida, setAreaConstruida] = useState(0);
+    const [area_terreno, setarea_terreno] = useState(0);
+    const [areaconstruida, setareaconstruida] = useState(0);
     const [quartos, setQuartos] = useState(0);
     const [banheiros, setBanheiros] = useState(0);
     const [edicula, setEdicula] = useState(false);
     const [churrasqueira, setChurrasqueira] = useState(false);
     const [piscina, setPiscina] = useState(false);
-    const [valorCondominio, setValorCondominio] = useState(0);
-    const [precoVenda, setPrecoVenda] = useState(0);
+    const [valorcondominio, setvalorcondominio] = useState(0);
+    const [precovenda, setprecovenda] = useState(0);
     const [id, setId] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [casas, setCasas] = useState<Casa[]>([]);
@@ -52,28 +52,28 @@ export default function Page() {
         id,
         tipo,
         endereco,
-        areaTerreno,
-        areaConstruida,
+        area_terreno,
+        areaconstruida,
         quartos,
         banheiros,
         edicula,
         churrasqueira,
         piscina,
-        valorCondominio,
-        precoVenda
+        valorcondominio,
+        precovenda
 
     }: Casa) => {
         setTipo(tipo)
         setEndereco(endereco)
-        setAreaTerreno(areaTerreno)
-        setAreaConstruida(areaConstruida)
+        setarea_terreno(area_terreno)
+        setareaconstruida(areaconstruida)
         setQuartos(quartos)
         setBanheiros(banheiros)
         setEdicula(edicula)
         setChurrasqueira(churrasqueira)
         setPiscina(piscina)
-        setValorCondominio(valorCondominio)
-        setPrecoVenda(precoVenda)
+        setvalorcondominio(valorcondominio)
+        setprecovenda(precovenda)
         setId(id)
         setIsModalOpen(true)
     }
@@ -96,30 +96,30 @@ export default function Page() {
                 await addCasa(
                     tipo,
                     endereco,
-                    areaTerreno,
-                    areaConstruida,
+                    area_terreno,
+                    areaconstruida,
                     quartos,
                     banheiros,
                     edicula,
                     churrasqueira,
                     piscina,
-                    valorCondominio,
-                    precoVenda
+                    valorcondominio,
+                    precovenda
                 )
             else
                 await updateCasa(
                     id,
                     tipo,
                     endereco,
-                    areaTerreno,
-                    areaConstruida,
+                    area_terreno,
+                    areaconstruida,
                     quartos,
                     banheiros,
                     edicula,
                     churrasqueira,
                     piscina,
-                    valorCondominio,
-                    precoVenda
+                    valorcondominio,
+                    precovenda
                 )
             fetchCasa()
             closeModal()
@@ -138,15 +138,15 @@ export default function Page() {
                         id: 0,
                         tipo: '',
                         endereco: '',
-                        areaTerreno: 0,
-                        areaConstruida: 0,
+                        area_terreno: 0,
+                        areaconstruida: 0,
                         quartos: 0,
                         banheiros: 0,
                         edicula: false,
                         churrasqueira: false,
                         piscina: false,
-                        valorCondominio: 0,
-                        precoVenda: 0
+                        valorcondominio: 0,
+                        precovenda: 0
                     })}
                     className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
@@ -223,21 +223,21 @@ export default function Page() {
 
               <div className="grid grid-cols-5 gap-4">
                 <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-900">areaTerreno</label>
+                  <label className="block text-sm font-medium text-gray-900">area_terreno</label>
                   <input
                     type="number"
-                    value={areaTerreno}
-                    onChange={(e) => setAreaTerreno(Number(e.target.value))}
+                    value={area_terreno}
+                    onChange={(e) => setarea_terreno(Number(e.target.value))}
                     className="w-full rounded-md border-gray-300 px-3 py-1.5"
                     required
                   />
                 </div>
                 <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-900">areaConstruida</label>
+                  <label className="block text-sm font-medium text-gray-900">areaconstruida</label>
                   <input
                     type="number"
-                    value={areaConstruida}
-                    onChange={(e) => setAreaConstruida(Number(e.target.value))}
+                    value={areaconstruida}
+                    onChange={(e) => setareaconstruida(Number(e.target.value))}
                     className="w-full rounded-md border-gray-300 px-3 py-1.5"
                     required
                   />
@@ -296,8 +296,8 @@ export default function Page() {
                   <label className="block text-sm font-medium text-gray-900">Valor do Condomínio</label>
                   <input
                     type="number"
-                    value={valorCondominio}
-                    onChange={(e) => setValorCondominio(Number(e.target.value))}
+                    value={valorcondominio}
+                    onChange={(e) => setvalorcondominio(Number(e.target.value))}
                     className="w-full rounded-md border-gray-300 px-3 py-1.5"
                     required
                   />
@@ -306,8 +306,8 @@ export default function Page() {
                   <label className="block text-sm font-medium text-gray-900">Preço de Venda</label>
                   <input
                     type="number"
-                    value={precoVenda}
-                    onChange={(e) => setPrecoVenda(Number(e.target.value))}
+                    value={precovenda}
+                    onChange={(e) => setprecovenda(Number(e.target.value))}
                     className="w-full rounded-md border-gray-300 px-3 py-1.5"
                     required
                   />

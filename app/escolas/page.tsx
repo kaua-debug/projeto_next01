@@ -7,7 +7,7 @@ interface Escola {
   id: number;
   nome: string;
   endereco: string;
-  quantidadeAlunos: number;
+  quantidade_alunos: number;
   telefone: string;
 }
 
@@ -17,7 +17,7 @@ export default function Page() {
   const [id, setId] = useState(0);
   const [nome, setNome] = useState('');
   const [endereco, setEndereco] = useState('');
-  const [quantidadeAlunos, setQuantidadeAlunos] = useState(0);
+  const [quantidade_alunos, setQuantidade_alunos] = useState(0);
   const [telefone, setTelefone] = useState('');
 
   const fetchEscolas = async () => {
@@ -33,11 +33,11 @@ export default function Page() {
     fetchEscolas();
   }, []);
 
-  const handleEdit = ({ id, nome, endereco, quantidadeAlunos, telefone }: Escola) => {
+  const handleEdit = ({ id, nome, endereco, quantidade_alunos, telefone }: Escola) => {
     setId(id);
     setNome(nome);
     setEndereco(endereco);
-    setQuantidadeAlunos(quantidadeAlunos);
+    setQuantidade_alunos(quantidade_alunos);
     setTelefone(telefone);
     setIsModalOpen(true);
   };
@@ -54,8 +54,8 @@ export default function Page() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      if (id === 0) await addEscola(nome, endereco, quantidadeAlunos, telefone);
-      else await updateEscola(id, nome, endereco, quantidadeAlunos, telefone);
+      if (id === 0) await addEscola(nome, endereco, quantidade_alunos, telefone);
+      else await updateEscola(id, nome, endereco, quantidade_alunos, telefone);
       fetchEscolas();
       closeModal();
     } catch (error) {
@@ -69,7 +69,7 @@ export default function Page() {
 
       <div className="mb-4">
         <button
-          onClick={() => handleEdit({ id: 0, nome: '', endereco: '', quantidadeAlunos: 0, telefone: '' })}
+          onClick={() => handleEdit({ id: 0, nome: '', endereco: '', quantidade_alunos: 0, telefone: '' })}
           className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500"
         >
           Adicionar Nova Escola
@@ -92,7 +92,7 @@ export default function Page() {
               <tr key={escola.id} className="hover:bg-gray-100 cursor-pointer">
                 <td className="border px-4 py-2">{escola.nome}</td>
                 <td className="border px-4 py-2">{escola.endereco}</td>
-                <td className="border px-4 py-2">{escola.quantidadeAlunos}</td>
+                <td className="border px-4 py-2">{escola.quantidade_alunos}</td>
                 <td className="border px-4 py-2">{escola.telefone}</td>
                 <td className="border px-4 py-2">
                   <button className="bg-indigo-600 px-3 py-2 text-sm text-white mr-2" onClick={() => handleEdit(escola)}>Editar</button>
@@ -109,9 +109,18 @@ export default function Page() {
           <div className="bg-white rounded-lg p-8 w-full max-w-md">
             <h2 className="text-lg font-semibold mb-4">Cadastro de Escola</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
+
+              <div>
+                <label htmlFor=""
+                className=''
+                >
+
+                </label>
+              </div>
+
               <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome" required className="w-full p-2 border rounded" />
               <input type="text" value={endereco} onChange={(e) => setEndereco(e.target.value)} placeholder="Endereço" required className="w-full p-2 border rounded" />
-              <input type="number" value={quantidadeAlunos} onChange={(e) => setQuantidadeAlunos(Number(e.target.value))} placeholder="Quantidade de Alunos" required className="w-full p-2 border rounded" />
+              <input type="number" value={quantidade_alunos} onChange={(e) => setQuantidade_alunos(Number(e.target.value))} placeholder="Quantidade de Alunos" required className="w-full p-2 border rounded" />
               <input type="text" value={telefone} onChange={(e) => setTelefone(e.target.value)} placeholder="Telefone" required className="w-full p-2 border rounded" />
               <div className="flex justify-end gap-4">
                 <button type="button" onClick={closeModal} className="text-gray-700">Cancelar</button>

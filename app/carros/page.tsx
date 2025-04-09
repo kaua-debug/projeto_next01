@@ -93,20 +93,23 @@ export default function Page() {
         </button>
   
         <table className="table-auto w-full border">
-          <thead>
-            <tr>
-              <th className="border px-4 py-2">Fabricante</th>
-              <th className="border px-4 py-2">Modelo</th>
-              <th className="border px-4 py-2">Ano de Fabricação</th>
-              <th className="border px-4 py-2">quilometros Rodados</th>
-            </tr>
-          </thead>
-          <tbody>
+        <thead>
+              <tr>
+                <th className="border px-4 py-2">Fabricante</th>
+                <th className="border px-4 py-2">Modelo</th>
+                <th className="border px-4 py-2">Ano de Fabricação</th>
+                <th className="border px-4 py-2">Quilômetros Rodados</th> 
+                <th className="border px-4 py-2">Ações</th>
+              </tr>
+            </thead>
+
+                      <tbody>
             {carros.map((carro) => (
               <tr key={carro.id} className="hover:bg-gray-100">
                 <td className="border px-4 py-2">{carro.fabricante}</td>
                 <td className="border px-4 py-2">{carro.modelo}</td>
                 <td className="border px-4 py-2">{carro.ano_fabricacao}</td>
+                <td className="border px-4 py-2">{carro.quilometros_rodados} km</td> {/* ← aqui! */}
                 <td className="border px-4 py-2">
                   <button onClick={() => handleEdit(carro)} className="bg-green-600 text-white px-3 py-1 rounded mr-2">Editar</button>
                   <button onClick={() => handleRemove(carro)} className="bg-red-600 text-white px-3 py-1 rounded">Excluir</button>
@@ -114,6 +117,9 @@ export default function Page() {
               </tr>
             ))}
           </tbody>
+
+            
+      
         </table>
   
         {isModalOpen && (
@@ -121,22 +127,100 @@ export default function Page() {
             <div className="bg-white p-6 rounded shadow-lg w-96">
               <h2 className="text-lg font-bold mb-4">Cadastrar Carro</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
-                <input type="text" value={fabricante} onChange={(e) => setFabricante(e.target.value)} placeholder="Fabricante" required className="w-full p-2 border rounded text-gray-900" />
-                <input type="text" value={modelo} onChange={(e) => setModelo(e.target.value)} placeholder="Modelo" className="w-full p-2 border rounded text-gray-900" />
-                <input type="number" value={ano_fabricacao} onChange={(e) => setAnoFabricação(e.target.valueAsNumber)} placeholder="Ano de Fabricação" className="w-full p-2 border rounded text-gray-900" required />
-                <input type="text" value={cor} onChange={(e) => setCor(e.target.value)} placeholder="Cor" className="w-full p-2 border rounded text-gray-900" />
-                <input type="number" value={quilometros_rodados} onChange={(e) => setquilometros_rodados(e.target.valueAsNumber)} placeholder="quilometros rodados" className="w-full p-2 border rounded text-gray-900" required />
-                <div className="flex justify-end space-x-2">
-                  <button type="button" onClick={closeModal} className="bg-gray-400 text-white px-3 py-2 rounded">Cancelar</button>
-                  <button type="submit" className="bg-blue-600 text-white px-3 py-2 rounded">Salvar</button>
+                <div 
+                  className='space-y-4'>
+                  <div>
+                    <label htmlFor=""
+                      className="block text-sm font-medium text-gray-900"
+                    >
+                      fabricante
+                    </label>
+                    <input type="text" value={fabricante} onChange={(e) => setFabricante(e.target.value)} placeholder="Fabricante" required className="w-full p-2 border rounded text-gray-900" />
+                  </div>
+
                 </div>
-              </form>
-            </div>
+
+                <div>
+                  <label htmlFor=""
+                  className='block text-sm font-medium text-gray-900'
+                  >
+                    Modelo
+                  </label>
+                  <input 
+                    type="text" 
+                    value={modelo} 
+                    onChange={(e) => setModelo(e.target.value)} 
+                    placeholder="Modelo" 
+                    className="w-full p-2 border rounded text-gray-900"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor=""
+                  className='block text-sm font-medium text-gray-900'>
+                    Ano de fabricacao
+                  </label>
+                <input  
+                  placeholder = "ano de fabricacao" 
+                  type="number" 
+                  value={ano_fabricacao} 
+                  onChange={(e) => setAnoFabricação(e.target.valueAsNumber)} 
+                  className="w-full p-2 border rounded text-gray-900" 
+                  required 
+                />
+                </div>
+
+                <div>
+                  <label htmlFor=""
+                  className='block text-sm font-medium text-gray-900'
+                  >
+                    Cor
+                  </label>
+                <input 
+                type="text"
+                 value={cor}
+                  onChange={(e) => setCor(e.target.value)}
+                   placeholder="Cor"
+                    className="w-full p-2 border rounded text-gray-900" />
+                </div>
+
+                    <div>
+                      <label htmlFor=""
+                      className='block text-sm font-medium text-gray-900'
+                      >
+                          Quilometros Rodados
+                      </label>
+                <input 
+                  type="number" 
+                  value={quilometros_rodados} 
+                  onChange={(e) => setquilometros_rodados(e.target.valueAsNumber)} 
+                  placeholder="quilometros rodados" 
+                  className="w-full p-2 border rounded text-gray-900" 
+                  required 
+                />
+                    </div>
+
+                <div className="flex justify-end space-x-2">
+                  <button type="button" 
+                  onClick={closeModal}
+                   className="bg-gray-400 text-white px-3 py-2 rounded"
+                   >Cancelar
+                   </button>
+                  <button 
+                  type="submit"
+                   className="bg-blue-600 text-white px-3 py-2 rounded"
+                   >Salvar
+                   </button>
+
+                    </div>
+
+                </form>
+
+              </div>
+
           </div>
         )}
-      </div>
+  </div>
     );
-  
-
 
 }

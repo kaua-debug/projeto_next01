@@ -129,7 +129,12 @@ export default function Page() {
                         <form onSubmit={handleSubmit}>
                             <div className="space-y-4">
                                 <div>
-                                    <label htmlFor="nome" className="block text-sm font-medium text-gray-900">Nome</label>
+                                    <label 
+                                        htmlFor="nome" 
+                                        className="block text-sm font-medium text-gray-900"
+                                    >
+                                        Nome
+                                    </label>
                                     <input
                                         type="text"
                                         value={nome}

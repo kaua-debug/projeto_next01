@@ -10,7 +10,7 @@ interface Cliente {
     data_de_nascimento: string;
     numero_de_telefone: number;
     email: string;
-    CPF: string;
+    cpf: string;
 }
 
 export default function Page() {
@@ -19,7 +19,7 @@ export default function Page() {
     const [ data_de_nascimento, setDataDeNascimento] = useState('data')
     const [ numero_de_telefone, setNumeroDeTelefone] = useState(0)  
     const [ email, setEmail] = useState('email') 
-    const [ CPF, setCPF] = useState('CPF')
+    const [ cpf, setCPF] = useState('cpf')
     const [ isModalOpen, setIsModalOpen] = useState(false)
     const [ clientes, setClientes] = useState<Cliente[]>([])
     const [ id, setId] = useState(0)
@@ -44,7 +44,7 @@ export default function Page() {
         data_de_nascimento,
         numero_de_telefone,
         email,
-        CPF
+        cpf
 
     }: Cliente) => {
         setId(id)
@@ -53,7 +53,7 @@ export default function Page() {
         setDataDeNascimento(data_de_nascimento)
         setNumeroDeTelefone(numero_de_telefone)
         setEmail(email)
-        setCPF(CPF)
+        setCPF(cpf)
         setIsModalOpen(true)
     }
 
@@ -78,7 +78,7 @@ export default function Page() {
                     data_de_nascimento,
                     numero_de_telefone,
                     email,
-                    CPF
+                    cpf
                 )
             else 
                 await updateCliente(
@@ -88,7 +88,7 @@ export default function Page() {
                     data_de_nascimento,
                     numero_de_telefone,
                     email,
-                    CPF
+                    cpf
                 )
 
             fetchClientes()
@@ -112,7 +112,7 @@ export default function Page() {
                 data_de_nascimento: '',
                 numero_de_telefone: 0,
                 email: '',
-                CPF: ''
+                cpf: ''
             })}
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
@@ -261,14 +261,14 @@ export default function Page() {
              <label htmlFor=""
              className="block text-sm font-medium text-gray-900"
              >
-                 CPF
+                 cpf
              </label>
              <div className="mt-1">
                  <input 
                  type="text" 
-                 name="CPF" 
-                 id="CPF" 
-                 value={CPF}
+                 name="cpf" 
+                 id="cpf" 
+                 value={cpf}
                  onChange={(event) => setCPF(event.target.value)}
                  required
                  />
