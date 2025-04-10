@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 interface Produto {
     id: number;
     nome: string;
-    valorUnitario: number;
+    valor_unitario: number;
     validade: string;
     descricao: string;
 }
@@ -16,13 +16,16 @@ export default function Page() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [id, setId] = useState(0)
     const [nome, setNome] = useState('nome produto')
-    const [valorUnitario, setValorUnitario] = useState<number>(0)
+    const [valor_unitario, setvalor_unitario] = useState<number>(0)
     const [validade, setValidade] = useState('')
     const [descricao, setDescricao] = useState('Descrição')
 
     const fetchProdutos = async () => {
         try {
             const data = await getProdutos()
+            data.map((produtos) => {
+                produtos.validade = produtos.validade.toISOString().split('T')[0] || ''
+              })
             setProdutos(data)
         } catch (error) {
             console.error('Erro ao buscar produtos', error)
@@ -33,10 +36,10 @@ export default function Page() {
         fetchProdutos()
     }, [])
 
-    const handleEdit = ({ id, nome, valorUnitario, validade, descricao }: Produto) => {
+    const handleEdit = ({ id, nome, valor_unitario, validade, descricao }: Produto) => {
         setId(id)
         setNome(nome)
-        setValorUnitario(valorUnitario)
+        setvalor_unitario(valor_unitario)
         setValidade(validade)
         setDescricao(descricao)
         setIsModalOpen(true)
@@ -55,9 +58,9 @@ export default function Page() {
         event.preventDefault()
         try {
             if (id === 0) {
-                await addProduto(nome, valorUnitario, validade, descricao)
+                await addProduto(nome, valor_unitario, validade, descricao)
             } else {
-                await updateProdutos(id, nome, valorUnitario, validade, descricao)
+                await updateProdutos(id, nome, valor_unitario, validade, descricao)
             }
             fetchProdutos()
             closeModal()
@@ -75,7 +78,7 @@ export default function Page() {
                     onClick={() => handleEdit({
                         id: 0,
                         nome: '',
-                        valorUnitario: 0,
+                        valor_unitario: 0,
                         validade: '',
                         descricao: ''
                     })}
@@ -98,7 +101,7 @@ export default function Page() {
                         {produtos.map((produto) => (
                             <tr key={produto.id} className="hover:bg-gray-100 cursor-pointer">
                                 <td className="border px-4 py-2">{produto.nome}</td>
-                                <td className="border px-4 py-2">{produto.valorUnitario}</td>
+                                <td className="border px-4 py-2">{produto.valor_unitario}</td>
                                 <td className="border px-4 py-2 space-x-2">
                                     <button
                                         className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
@@ -149,8 +152,8 @@ export default function Page() {
                                     <label htmlFor="valor_unitario" className="block text-sm font-medium text-gray-900">Valor Unitário</label>
                                     <input
                                         type="number"
-                                        value={valorUnitario}
-                                        onChange={(e) => setValorUnitario(Number(e.target.value))}
+                                        value={valor_unitario}
+                                        onChange={(e) => setvalor_unitario(Number(e.target.value))}
                                         id="valor_unitario"
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                         required

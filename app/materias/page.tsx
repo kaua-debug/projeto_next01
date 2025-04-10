@@ -68,11 +68,11 @@ export default function Page() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const materiaData = { nome, descricao, ano_letivo: Number(ano_letivo) }; 
+      const anoLetivoNumero = Number(ano_letivo); // converter corretamente aqui
       if (id === null) {
-        await addMaterias(nome, descricao, ano_letivo);
+        await addMaterias(nome, descricao, anoLetivoNumero); // corrigido
       } else {
-        await updateMateria(id, nome, descricao, ano_letivo); 
+        await updateMateria(id, nome, descricao, anoLetivoNumero); // corrigido
       }
       fetchMaterias();
       closeModal();
@@ -80,7 +80,6 @@ export default function Page() {
       console.error('Erro ao salvar matéria:', error);
     }
   };
-
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Cadastro de Matérias</h1>
