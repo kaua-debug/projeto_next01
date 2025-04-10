@@ -23,35 +23,35 @@ Erros:
     Carros:
         ✔ ao carregar a pagina nao deveria mostrar mensage "Carro cadastrado com sucesso!" ok @done(25-04-08 16:00)
         ✔ ultimo campo numerico nao permite alterar o valor   ok @done(25-04-08 16:00)
-        ☐ ultimo campo nao tem titulo ou descricao
-        ☐ salvar novo carro nao funciona e exibe a mensagem de cadastrado com sucesso
+        ✔ ultimo campo nao tem titulo ou descricao @done(25-04-09 17:32)
+        ✔ salvar novo carro nao funciona e exibe a mensagem de cadastrado com sucesso @done(25-04-09 15:52)
     Casa_de_oracao:
-        ☐ salvar nova casa de oracao nao funciona, outros nao puderam ser feitos
-        ☐ os campo telDiacono esta diferente dos outros campos de telefone
-        ☐ campos telDiacono e ultimaSantaCeia refletem o mesmo valor
+        ✔ salvar nova casa de oracao nao funciona, outros nao puderam ser feitos @done(25-04-10 12:07)
+        ✔ os campo telDiacono esta diferente dos outros campos de telefone @done(25-04-10 12:07)
+        ✔ campos telDiacono e ultimaSantaCeia refletem o mesmo valor @done(25-04-10 12:07)
     Casas:
         formulario de edicao nao carrega os campos:
-            ☐ area terreno
-            ☐ area construida
-            ☐ valor condominio
-            ☐ preco de venda
+            ✔ area terreno @done(25-04-09 17:37)
+            ✔ area construida @done(25-04-09 17:37)
+            ✔ valor condominio @done(25-04-09 17:37)
+            ✔ preco de venda @done(25-04-09 17:37)
         
     Clientes:
         ☐ salvar edicao nao funciona
         editar nao carrega os campos:
             ☐ data de nascimento
-            ☐ cpf
+            ✔ cpf @done(25-04-09 17:41)
     Computadores:
         ☐ salvar novo computador nao funciona, outros testes nao puderam ser feitos
     Curriculos:
         ❤️
     Escolas:
-        ☐ formulario de edicao nao carrega o campo de quantidade de alunos
-        ☐ aparecem erros ao editar os campos no formulario
+        ✔ formulario de edicao nao carrega o campo de quantidade de alunos @done(25-04-10 12:41)
+        ✔ aparecem erros ao editar os campos no formulario @done(25-04-10 13:22)
     Filme:
-        ☐ formulario de edicao nao carrega o campo classificacao etaria
-        ☐ salvar edicao nao funciona
-        ☐ botao excluir nao funciona
+        ✔ formulario de edicao nao carrega o campo classificacao etaria @done(25-04-10 13:24)
+        ✔ salvar edicao nao funciona @done(25-04-10 15:23)
+        ✔ botao excluir nao funciona @done(25-04-10 15:23)
     Hinos:
         ❤️
     Instrumentos:
@@ -66,18 +66,18 @@ Erros:
         ☐ salvar edicao nao funciona
         ☐ 
     Materias:
-        ☐ salvar nova materia nao funciona
+        ✔ salvar nova materia nao funciona @done(25-04-10 15:49)
     Pneus:
         ☐ formulario de edicao nao carrega o campo carga maxima
         ☐ aparecem erros na pagina ao editar alguns campos do formulario
         ☐ bota excluir nao funciona
     Produtos:
-        ☐ tabela de registros noa mostra o valor da coluna valor unitario
+        ✔ tabela de registros nao mostra o valor da coluna valor unitario @done(25-04-10 14:22)
         editar nao carrega as colunas:
-            ☐ valor unitario
+            ✔ valor unitario @done(25-04-10 14:22)
             ☐ validade
     Professores:
         ❤️
     Usuarios:
-        ☐ formulario de novo usuario vem preenchido o campo de senha, deveria estar vazio
+        ✔ formulario de novo usuario vem preenchido o campo de senha, deveria estar vazio @done(25-04-10 15:45)
         ☐ formulario de edicao nao carrega o campo de senha
