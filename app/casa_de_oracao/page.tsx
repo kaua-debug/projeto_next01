@@ -1,331 +1,443 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { addCasaDeOracao, getCasasDeOracao, removeCasasDeOracao, updateCasaDeOracao } from '@/lib/casa_de_oracao/casa_de_oracao';
+    
+import { useEffect, useState } from "react";
+import { addCasaOracao, getCasas_de_oracao, removeComum, updateComum } from "@/lib/casa_de_oracao/casa_de_oracao";
 
-
-interface CasasDeOracao {
-  id: number;
-    nome: string, 
-    endereco: string,
-    anciao: string,
-    telefoneAnciao: string,
-    cooperador:string,
-    telefoneCooperador: string,
-    CooperadorDeJovens: string,
-    telefoneCooperadorJovens: string,
-    diacono: string, 
-    telefoneDiacono: string,
-    ultimaSantaCeia: number
+interface Casa_de_Oracao {
+    id: number;
+    nome: string;
+    endereco: string;
+    anciao: string;
+    telefone_anciao: string;
+    cooperador: string;
+    telefone_cooperador: string;
+    cooperador_de_jovens: string;
+    telefone_cooperador_jovens: string;
+    diacono: string;
+    telefone_diacono: string;
+    ultima_santa_ceia: number;
 }
 
 export default function Page() {
-  const [CasasDeOracao, setCasasDeOracao] = useState<CasasDeOracao[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [id, setId] = useState(0);
-  const [nome, setnome] = useState('');
-  const [Endereco, setendereco] = useState('');
-  const [Anciao, setAnciao] = useState('');
-  const [NumeroDoAnciao, setNumeroDoAnciao] = useState('');
-  const [Cooperador, setCooperador] = useState('');
-  const [TelefoneCooperador, setTelefoneCooperador] = useState('');
-  const [CooperadorDeJovens, setCooperadorDeJovens] = useState('');
-  const [TelefoneCooperadorDeJovens, setTelefoneCooperadorDeJovens] = useState('');
-  const [Diacono, setDiacono] = useState('');
-  const [TelefoneDiacono, setTelefoneDiacono] = useState('');
-  const [ultimaSantaCeia, setUltimaSantaCeia] = useState(0);
+    const [nome, setNome] = useState('');
+    const [endereco, setEndereco] = useState('');
+    const [anciao, setAnciao] = useState('');
+    const [telefone_anciao, setTelefone_anciao] = useState('');
+    const [cooperador, setCooperador] = useState('');
+    const [telefone_cooperador, setTelefone_cooperador] = useState('');
+    const [cooperadorJovens, setCooperadorJovens] = useState('');
+    const [telefone_cooperador_jovens, settelefone_cooperador_jovens] = useState('');
+    const [diacono, setDiacono] = useState('');
+    const [telefone_diacono, setTelefone_diacono] = useState('');
+    const [ultima_santa_ceia, setultima_santa_ceia] = useState(1);
+    const [id, setId] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [casas_de_oracao, setCasas_de_oracao] = useState<Casa_de_Oracao[]>([])
 
-
-  
-  const fetchCasaDeOracaos = async () => {
-    try {
-      const data = await setCasasDeOracao(id);
-      setCasasDeOracao(data)
-    } catch (error) {
-      console.error('Erro ao buscar CasasDeOracao:', error);
-    }
-  };
-
-  
-  useEffect(() => {
-    const fetchCasas = async () => {
-      try {
-        const data = await getCasasDeOracao();
-        console.log("Dados recebidos:", data); 
-        if (Array.isArray(data)) {
-          setCasasDeOracao(data);
-        } else {
-          console.error("Erro: getCasasDeOracao não retornou um array.");
+    const fetchCasas_de_oracao = async () => {
+        try {
+            const data = await getCasas_de_oracao()
+            setCasas_de_oracao(data)
+        } catch (error) {
+            console.error('Erro fetching comum', error)
         }
-      } catch (error) {
-        console.error("Erro ao buscar casas de oração:", error);
-      }
-    };
-    fetchCasas();
-  }, []);
-  
-
-    const handleEdit = (casa_de_oracao: CasasDeOracao) => {
-    setId(casa_de_oracao.id);
-    setnome(casa_de_oracao.nome);
-    setendereco(casa_de_oracao.endereco);
-    setAnciao(casa_de_oracao.anciao);
-    setNumeroDoAnciao(casa_de_oracao.telefoneAnciao);
-    setCooperador(casa_de_oracao.cooperador);
-    setTelefoneCooperador(casa_de_oracao.telefoneCooperador);
-    setCooperadorDeJovens(casa_de_oracao.CooperadorDeJovens);
-    setTelefoneCooperadorDeJovens(casa_de_oracao.diacono);
-    setDiacono(casa_de_oracao.telefoneDiacono);
-    setTelefoneDiacono(casa_de_oracao.ultimaSantaCeia);    
-    setIsModalOpen(true);
-  };
-
-  
-  const handleRemove = async (id: number) => {
-    await removeCasasDeOracao(id);
-    fetchCasaDeOracaos();
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      if (id === 0) {
-        await addCasaDeOracao( nome, Endereco, Anciao, NumeroDoAnciao, Cooperador, TelefoneCooperador, CooperadorDeJovens, TelefoneCooperadorDeJovens, Diacono, TelefoneDiacono, ultimaSantaCeia);
-      } else {
-        await updateCasaDeOracao(id, nome, Endereco, Anciao, NumeroDoAnciao, Cooperador, TelefoneCooperador, CooperadorDeJovens, TelefoneCooperadorDeJovens, Diacono, TelefoneDiacono, ultimaSantaCeia);
-      }
-      fetchCasaDeOracaos();
-      closeModal();
-    } catch (error) {
-      console.error('Erro ao salvar casa_de_oracao:', error);
     }
-  };
 
-  return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Cadastro de CasasDeOracao</h1>
+    useEffect(() => {
+        fetchCasas_de_oracao()
+    }, [])
 
+    const handleEdit = ({
+        id,
+        nome,
+        endereco,
+        anciao,
+        telefone_anciao,
+        cooperador,
+        telefone_cooperador,
+        cooperador_de_jovens,
+        telefone_cooperador_jovens,
+        diacono,
+        telefone_diacono,
+        ultima_santa_ceia
 
-      <div className="mb-4">
-        <button
-          onClick={() => handleEdit({ id: 0, nome: '', endereco: '', anciao: '', telefoneAnciao: '', cooperador: '', telefoneCooperador: '', CooperadorDeJovens: '', telefoneCooperadorJovens: '', diacono: '', telefoneDiacono: '', ultimaSantaCeia: 0 })}
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Adicionar Novo Casa de Oracao
-        </button>
-      </div>
+    }: Casa_de_Oracao) => {
+        setId(id)
+        setNome(nome || '')
+        setEndereco(endereco || '')
+        setAnciao(anciao || '')
+        setTelefone_anciao(telefone_anciao || '')
+        setCooperador(cooperador || '')
+        setTelefone_cooperador(telefone_cooperador || '')
+        setCooperadorJovens(cooperador_de_jovens || '')
+        settelefone_cooperador_jovens(telefone_cooperador_jovens || '')
+        setDiacono(diacono || '')
+        setTelefone_diacono(telefone_diacono || '')
+        setultima_santa_ceia(ultima_santa_ceia || 0)
+        setIsModalOpen(true)
+    }
 
+    const handleRemove = async ({
+            id
+        }: Casa_de_Oracao) => {
+            await removeComum(id)
+            fetchCasas_de_oracao()
+        }
 
-      <div className="overflow-x-auto">
-        <table className="table-auto w-full">
-          <thead>
-            <tr>
-              <th className="border px-4 py-2">nome</th>
-              <th className="border px-4 py-2">endereco</th>
-              <th className="border px-4 py-2">anciao</th>
-              <th className="border px-4 py-2">telefoneAnciao</th>
-              <th className="border px-4 py-2">cooperador</th>
-              <th className="border px-4 py-2">telefoneCooperador</th>
-              <th className="border px-4 py-2">CooperadorDeJovens</th>
-              <th className="border px-4 py-2">telefoneCooperadorJovens</th>
-              <th className="border px-4 py-2">diacono</th>
-              <th className="border px-4 py-2">telefoneDiacono</th>
-              <th className="border px-4 py-2">ultimaSantaCeia</th>
-            </tr>
-          </thead>
-          <tbody>
+    const closeModal = () => {
+        setIsModalOpen(false)
+    }
 
-            {CasasDeOracao.map((CasasDeOracao) => (
-              <tr key={CasasDeOracao.id}>
-                <td className="border px-4 py-2">{CasasDeOracao.nome}</td>
-                <td className="border px-4 py-2">{CasasDeOracao.endereco}</td>
-                <td className="border px-4 py-2">{CasasDeOracao.anciao}</td>
-                <td className="border px-4 py-2">{CasasDeOracao.telefoneAnciao}</td>
-                <td className="border px-4 py-2">{CasasDeOracao.cooperador}</td>
-                <td className="border px-4 py-2">{CasasDeOracao.telefoneCooperador}</td>
-                <td className="border px-4 py-2">{CasasDeOracao.CooperadorDeJovens ? 'Sim' : 'Não'}</td>
-                <td className="border px-4 py-2">{CasasDeOracao.telefoneCooperadorJovens ? 'Sim' : 'Não'}</td>
-                <td className="border px-4 py-2">{CasasDeOracao.diacono}</td>
-                <td className="border px-4 py-2">{CasasDeOracao.telefoneDiacono}</td>
-                <td className="border px-4 py-2">{CasasDeOracao.ultimaSantaCeia}</td>
-                <td className="border px-4 py-2">
-                  <button
-                    onClick={() => handleEdit(CasasDeOracao)}
-                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500"
-                  >
-                    Editar
-                  </button>
-                  <button
-                    onClick={() => handleRemove(CasasDeOracao.id)}
-                    className="ml-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500"
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        try {
+            if(id === 0)
+                await addCasaOracao(
+                    nome,
+                    endereco,
+                    anciao,
+                    telefone_anciao,
+                    cooperador,
+                    telefone_cooperador,
+                    cooperadorJovens,
+                    telefone_cooperador_jovens,
+                    diacono,
+                    telefone_diacono,
+                    ultima_santa_ceia
+                )
+            else 
+                await updateComum(
+                    id,
+                    nome,
+                    endereco,
+                    anciao,
+                    telefone_anciao,
+                    cooperador,
+                    telefone_cooperador,
+                    cooperadorJovens,
+                    telefone_cooperador_jovens,
+                    diacono,
+                    telefone_diacono,
+                    ultima_santa_ceia
+                )
 
-
-      {isModalOpen && (
-        <div className="fixed inset-0 z-10 overflow-y-auto bg-gray-500 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white rounded-lg p-8 w-full max-w-md">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Cadastro de CasasDeOracao</h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
-
-              <div className="grid grid-cols-5 gap-4">
-                <div className="col-span-3">
-                  <label className="block text-sm font-medium text-gray-900">nome</label>
-                  <input
-                    type="text"
-                    value={nome}
-                    onChange={(e) => setnome(e.target.value)}
-                    className="w-full rounded-md border-gray-300 px-3 py-1.5"
-                    required
-                  />
-                </div>
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-900">endereco</label>
-                  <input
-                    type="text"
-                    value={Endereco}
-                    onChange={(e) => setendereco(e.target.value)}
-                    className="w-full rounded-md border-gray-300 px-3 py-1.5"
-                    required
-                  />
-                </div>
-              </div>
+            fetchCasas_de_oracao()
+            closeModal()
+        } catch (error) {
+            console.error(' Erro adding comum:', error)
+        }
+    }
+    
 
 
-              <div className="grid grid-cols-5 gap-4">
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-900">Anciao</label>
-                  <input
-                    type="text"
-                    value={Anciao}
-                    onChange={(e) => setAnciao((e.target.value))}
-                    className="w-full rounded-md border-gray-300 px-3 py-1.5"
-                    required
-                  />
-                </div>
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-900">telAnciao</label>
-                  <input
-                    type="text"
-                    value={NumeroDoAnciao}
-                    onChange={(e) => setNumeroDoAnciao((e.target.value))}
-                    className="w-full rounded-md border-gray-300 px-3 py-1.5"
-                    required
-                  />
-                </div>
-                <div className="col-span-1">
-                  <label className="block text-sm font-medium text-gray-900">cooperador</label>
-                  <input
-                    type="text"
-                    value={Cooperador}
-                    onChange={(e) => setCooperador((e.target.value))}
-                    className="w-full rounded-md border-gray-300 px-3 py-1.5"
-                    required
-                  />
-                </div>
-              </div>
+    return (
+        <div className="container mx-auto p-4">
+            <h1 className="text-2xl font-bold mb-4">Casa de Oracao</h1>
 
-
-              <div className="grid grid-cols-5 gap-4">
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-900">telCooperador</label>
-                  <input
-                    type="text"
-                    value={TelefoneCooperador}
-                    onChange={(e) => setTelefoneCooperador((e.target.value))}
-                    className="w-full rounded-md border-gray-300 px-3 py-1.5"
-                    required
-                  />
-                </div>
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-900">CooperadorJovens</label>
-                  <input
-                    type="text"
-                    value={CooperadorDeJovens}
-                    onChange={(e) => setCooperadorDeJovens(e.target.value)}
-                    className="w-full rounded-md border-gray-300"
-                  />
-                </div>
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-900">telCooperadorJovens</label>
-                  <input
-                    type="text"
-                    value={TelefoneCooperadorDeJovens}
-                    onChange={(e) => setTelefoneCooperadorDeJovens(e.target.value)}
-                    className="w-full rounded-md border-gray-300"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-5 gap-4">
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-900">diacono</label>
-                  <input
-                    type="text"
-                    value={Diacono}
-                    onChange={(e) => setDiacono((e.target.value))}
-                    className="w-full rounded-md border-gray-300 px-3 py-1.5"
-                    required
-                  />
-                </div>
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-900">telDiacono</label>
-                  <input
-                    type="text"
-                    value={TelefoneDiacono}
-                    onChange={(e) => setTelefoneDiacono((e.target.value))}
-                    className="w-full rounded-md border-gray-300 px-3 py-1.5"
-                    required
-                  />
-                </div>
-
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-900">ultimaSantaCeia</label>
-                  <input
-                    type="text"
-                    value={TelefoneDiacono}
-                    onChange={(e) => setTelefoneDiacono((e.target.value))}
-                    className="w-full rounded-md border-gray-300 px-3 py-1.5"
-                    required
-                  />
-                </div>
-                
-              </div>
-              
-              
-            
-
-              <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button
-                  type="button"
-                  className="text-sm font-semibold text-gray-900"
-                  onClick={closeModal}
+            <div className="mb-4">
+                <button 
+                onClick={() => handleEdit({
+                    id: 0,
+                    nome: '',
+                    endereco: '',
+                    anciao: '',
+                    telefone_anciao: '',
+                    cooperador: '',
+                    telefone_cooperador: '',
+                    cooperador_de_jovens: '',
+                    telefone_cooperador_jovens: '',
+                    diacono: '',
+                    telefone_diacono: '',
+                    ultima_santa_ceia: 0
+                })}
+                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Cancelar
+                    Adicionar Casa de Oracao
                 </button>
-                <button
-                  type="submit"
-                  className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500"
-                >
-                  Salvar
-                </button>
-              </div>
-            </form>
-          </div>
+            </div>
+
+            <div className="overflow-x-auto">
+                <table className="table-auto w-full">
+                    <thead>
+                        <tr>
+                            <th className="border px-4 py-2">Nome</th>
+                            <th className="border px-4 py-2">Endereço</th>
+                            <th className="border px-4 py-2">Açoes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {casas_de_oracao.map((comum) => (
+                            <tr 
+                            key={comum.id}
+                            className="hover:bg-gray-100 cursor-pointer"
+                            >
+                                <td className="border px-4 py-2">{comum.nome}</td>
+                                <td className="border px-4 py-2">{comum.endereco}</td>
+                                <td className="border px-4 py-2">
+                                    <button
+                                    className="rounded-mb bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    onClick={() => handleEdit(comum)}
+                                    >
+                                        Editar
+                                    </button>
+                                    <button
+                                    className="rounded-mb bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    onClick={() => handleRemove(comum)}
+                                    >
+                                        Excluir
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            {/* Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-10 overflow-y-auto bg-gray-500 bg-opacity-50 flex items-center justify-center">
+                    <div className="bg-white rounded-lg p-8 w-full max-w-md">
+                        <h2 className="text-base font-semibold text-gray-900 md-4">
+                            Nova Casa de Oracao
+                        </h2>
+
+                        <form onSubmit={handleSubmit}>
+                            <div className="space-y-4">
+                                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                    <div>
+                                        <label htmlFor=""
+                                        className="block text-sm font-medium text-gray-"
+                                        >
+                                            nome
+                                        </label>
+                                        <div>
+                                            <input 
+                                            type="text"
+                                            name="nome"
+                                            id="nome"
+                                            value={nome}
+                                            onChange={(event) => setNome(event.target.value)}
+                                            required
+                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor=""
+                                        className="block text-sm font-medium text-gray-"
+                                        >
+                                            endereço
+                                        </label>
+                                        <div>
+                                            <input 
+                                            type="text"
+                                            name="endereco"
+                                            id="endereco"
+                                            value={endereco}
+                                            onChange={(event) => setEndereco(event.target.value)}
+                                            required
+                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor=""
+                                        className="block text-sm font-medium text-gray-"
+                                        >
+                                            anciao
+                                        </label>
+                                        <div>
+                                            <input 
+                                            type="text"
+                                            name="anciao"
+                                            id="anciao"
+                                            value={anciao}
+                                            onChange={(event) => setAnciao(event.target.value)}
+                                            required
+                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor=""
+                                        className="block text-sm font-medium text-gray-"
+                                        >
+                                            telefone Anciao
+                                        </label>
+                                        <div>
+                                            <input 
+                                            type="text"
+                                            name="telefone_Anciao"
+                                            id="telefone_Anciao"
+                                            value={telefone_anciao}
+                                            onChange={(event) => setTelefone_anciao(event.target.value)}
+                                            required
+                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor=""
+                                        className="block text-sm font-medium text-gray-"
+                                        >
+                                            cooperador
+                                        </label>
+                                        <div>
+                                            <input 
+                                            type="text"
+                                            name="cooperador"
+                                            id="cooperador"
+                                            value={cooperador}
+                                            onChange={(event) => setCooperador(event.target.value)}
+                                            required
+                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor=""
+                                        className="block text-sm font-medium text-gray-"
+                                        >
+                                            telefone Cooperador
+                                        </label>
+                                        <div>
+                                            <input 
+                                            type="text"
+                                            name="telefoneCooperador"
+                                            id="telefoneCooperador"
+                                            value={telefone_cooperador}
+                                            onChange={(event) => setTelefone_cooperador(event.target.value)}
+                                            required
+                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor=""
+                                        className="block text-sm font-medium text-gray-"
+                                        >
+                                            cooperador Jovens
+                                        </label>
+                                        <div>
+                                            <input 
+                                            type="text"
+                                            name="cooperadorJovens"
+                                            id="cooperadorJovens"
+                                            value={cooperadorJovens}
+                                            onChange={(event) => setCooperadorJovens(event.target.value)}
+                                            required
+                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor=""
+                                        className="block text-sm font-medium text-gray-"
+                                        >
+                                            telefone Cooperador Jovens
+                                        </label>
+                                        <div>
+                                            <input 
+                                            type="text"
+                                            name="telefoneCooperadorJovens"
+                                            id="telefoneCooperadorJovens"
+                                            value={telefone_cooperador_jovens}
+                                            onChange={(event) => settelefone_cooperador_jovens(event.target.value)}
+                                            required
+                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor=""
+                                        className="block text-sm font-medium text-gray-"
+                                        >
+                                            diacono
+                                        </label>
+                                        <div>
+                                            <input 
+                                            type="text"
+                                            name="diacono"
+                                            id="diacono"
+                                            value={diacono}
+                                            onChange={(event) => setDiacono(event.target.value)}
+                                            required
+                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor=""
+                                        className="block text-sm font-medium text-gray-"
+                                        >
+                                            telefone Diacono
+                                        </label>
+                                        <div>
+                                            <input 
+                                            type="text"
+                                            name="telefoneDiacono"
+                                            id="telefoneDiacono"
+                                            value={telefone_diacono}
+                                            onChange={(event) => setTelefone_diacono(event.target.value)}
+                                            required
+                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor=""
+                                        className="block text-sm font-medium text-gray-"
+                                        >
+                                            ultima Santa Ceia
+                                        </label>
+                                        <div>
+                                            <input 
+                                            type="Number"
+                                            name="ultimaSantaCeia"
+                                            id="ultimaSantaCeia"
+                                            value={ultima_santa_ceia}
+                                            onChange={(event) => setultima_santa_ceia(event.target.valueAsNumber)}
+                                            required
+                                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            />
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div className="mt-6 flex items-center justify-end gap-x-6">
+                                <button
+                                type="button"
+                                className="text-sm font-semibold text-gray-900"
+                                onClick={closeModal}
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                type="submit"
+                                className="text-sm font-semibold text-gray-900"
+                                >
+                                    Salvar
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    )
 }

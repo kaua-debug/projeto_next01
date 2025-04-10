@@ -21,11 +21,17 @@ export async function updateHino(
     await pool.query(
         `
         update hinos set 
-            titulo = '${titulo}',
-            letra = '${letra}',
-            numero = ${numero}
-        where id = ${id}
-        `
+            titulo = $1,
+            letra = $2,
+            numero = $3
+        where id = $4 
+        `,
+        [
+            titulo,
+            letra,
+            numero,
+            id
+        ]
     )
 }
 export async function removeHino(

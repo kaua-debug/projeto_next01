@@ -7,7 +7,7 @@ export async function addFilmes (nome: string, diretor: string, assunto: string,
         (    nome,
              diretor,
              assunto,
-             classificacao_etaria
+             cssificacao_etaria
            
             ) values (
 
@@ -28,20 +28,32 @@ export async function addFilmes (nome: string, diretor: string, assunto: string,
             nome: string, 
             diretor: string, 
             assunto: string, 
-            classificacaoEtaria: number
+            classificacao_etaria: number
 
         ) {
 
             await pool.query(
-                `update filmes set
-                
-                nome = '${nome}'
-                diretor = '${diretor}'
-                assunto = '${assunto}'
-                classificacao_etaria = '${classificacaoEtaria}'
-                WHERE id = ${id}
                 `
+                update filmes set
+                nome = $1,
+                diretor = $2,
+                assunto = $3,
+                classificacao_etaria = $4,
+                where id = $5
+                `
+                
+                
             );
+
+            [
+
+                nome,
+                diretor, 
+                assunto, 
+                classificacao_etaria, 
+                id
+
+            ]
 
         }
 

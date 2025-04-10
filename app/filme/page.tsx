@@ -8,7 +8,7 @@ interface Filme {
   nome: string;
   diretor: string;
   assunto: string;
-  classificacaoEtaria: number;
+  classificacao_etaria: number;
 }
 
 export default function Page() {
@@ -18,7 +18,7 @@ export default function Page() {
   const [nome, setNome] = useState('');
   const [diretor, setDiretor] = useState('');
   const [assunto, setAssunto] = useState('');
-  const [classificacaoEtaria, setClassificacaoEtaria] = useState(0);
+  const [classificacao_etaria, setcalassificacao_etaria] = useState(0);
 
   const fetchFilmes = async () => {
     try {
@@ -33,12 +33,12 @@ export default function Page() {
     fetchFilmes();
   }, []);
 
-  const handleEdit = ({ id, nome, diretor, assunto, classificacaoEtaria }: Filme) => {
+  const handleEdit = ({ id, nome, diretor, assunto, classificacao_etaria }: Filme) => {
     setId(id);
     setNome(nome);
     setDiretor(diretor);
     setAssunto(assunto);
-    setClassificacaoEtaria(classificacaoEtaria);
+    setcalassificacao_etaria(classificacao_etaria);
     setIsModalOpen(true);
   };
 
@@ -54,8 +54,8 @@ export default function Page() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      if (id === 0) await addFilmes(nome, diretor, assunto, classificacaoEtaria);
-      else await updateFilmes(id, nome, diretor, assunto, classificacaoEtaria);
+      if (id === 0) await addFilmes(nome, diretor, assunto, classificacao_etaria);
+      else await updateFilmes(id, nome, diretor, assunto, classificacao_etaria);
       fetchFilmes();
       closeModal();
     } catch (error) {
@@ -66,7 +66,7 @@ export default function Page() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Cadastro de Filmes</h1>
-      <button onClick={() => handleEdit({ id: 0, nome: '', diretor: '', assunto: '', classificacaoEtaria: 0 })} className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500">
+      <button onClick={() => handleEdit({ id: 0, nome: '', diretor: '', assunto: '', classificacao_etaria: 0 })} className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500">
         Adicionar Novo Filme
       </button>
       <table className="table-auto w-full mt-4">
@@ -98,7 +98,7 @@ export default function Page() {
               <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
               <input type="text" value={diretor} onChange={(e) => setDiretor(e.target.value)} placeholder="Diretor" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
               <input type="text" value={assunto} onChange={(e) => setAssunto(e.target.value)} placeholder="Assunto" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
-              <input type="number" value={classificacaoEtaria} onChange={(e) => setClassificacaoEtaria(Number(e.target.value))} placeholder="Classificação Etária" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
+              <input type="number" value={classificacao_etaria} onChange={(e) => setcalassificacao_etaria(Number(e.target.value))} placeholder="Classificação Etária" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
               <div className="flex justify-end mt-4">
                 <button type="button" className="mr-2 text-sm text-gray-900" onClick={closeModal}>Cancelar</button>
                 <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm text-white">Salvar</button>

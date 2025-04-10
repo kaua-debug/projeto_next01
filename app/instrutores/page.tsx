@@ -25,7 +25,9 @@ export default function Page() {
   // Função para buscar instrutores
   const fetchInstrutores = async () => {
     try {
+      
       const instrutoresList = await getInstrutores();
+      data.map((instrutores) => {instrutores.data_nascimento = instrutores.data_nascimento.toISOString().split('T') [0]|| ''})
       setInstrutores(instrutoresList);
     } catch (error) {
       console.error('Erro ao buscar instrutores:', error);

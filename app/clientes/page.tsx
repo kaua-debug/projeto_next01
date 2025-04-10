@@ -1,134 +1,136 @@
-'use client'
-import { addCliente, updateCliente, getClientes, removeCliente } from "@/lib/clientes/clientes";
+      'use client'
+      import { addCliente, updateCliente, getClientes, removeCliente } from "@/lib/clientes/clientes";
+      import React, { useEffect, useState } from "react";
 
-import React, { useEffect, useState } from "react";
+      interface Cliente {
+          id: number;
+          nome: string;
+          endereco: string;
+          data_nascimento: string;
+          numero_de_telefone: number;
+          email: string;
+          cpf: string;
+      }
 
-interface Cliente {
-    id: number;
-    nome: string;
-    endereco: string;
-    data_de_nascimento: string;
-    numero_de_telefone: number;
-    email: string;
-    cpf: string;
-}
-
-export default function Page() {
-    const [ nome, setNome] = useState('nome')
-    const [ endereco, setEndereco] = useState('endereço')
-    const [ data_de_nascimento, setDataDeNascimento] = useState('data')
-    const [ numero_de_telefone, setNumeroDeTelefone] = useState(0)  
-    const [ email, setEmail] = useState('email') 
-    const [ cpf, setCPF] = useState('cpf')
-    const [ isModalOpen, setIsModalOpen] = useState(false)
-    const [ clientes, setClientes] = useState<Cliente[]>([])
-    const [ id, setId] = useState(0)
+      export default function Page() {
+         const [ nome, setNome] = useState('nome')
+         const [ endereco, setEndereco] = useState('endereço')
+         const [ data_nascimento, setDataDeNascimento] = useState('')
+         const [ numero_de_telefone, setNumeroDeTelefone] = useState(0)  
+         const [ email, setEmail] = useState('email') 
+         const [ cpf, setCPF] = useState('cpf')
+         const [ isModalOpen, setIsModalOpen] = useState(false)
+         const [ clientes, setClientes] = useState<Cliente[]>([])
+         const [ id, setId] = useState(0)
+         
+         const fetchClientes = async () => {
+             try {
+                 const data = await getClientes()
+                 data.map((cliente) => {
+                     cliente.data_nascimento = cliente.data_nascimento.toISOString().split('T')[0] || ''
+                 })
+                 setClientes(data)
+             } catch (error) {
+                 console.error('Erro fetching clientes', error)
+           }
+       }
     
-    const fetchClientes = async () => {
-        try {
-            const data = await getClientes()
-            setClientes(data)
-        } catch (error) {
-            console.error('Erro fetching clientes', error)
-        }
-    }
-
-    useEffect(() => {
-        fetchClientes()
-    }, [])
-
-    const handleEdit = ({
-        id,
-        nome,
-        endereco,
-        data_de_nascimento,
-        numero_de_telefone,
-        email,
-        cpf
-
-    }: Cliente) => {
-        setId(id)
-        setNome(nome)
-        setEndereco(endereco)
-        setDataDeNascimento(data_de_nascimento)
-        setNumeroDeTelefone(numero_de_telefone)
-        setEmail(email)
-        setCPF(cpf)
-        setIsModalOpen(true)
-    }
-
-    const handleRemove = async ({
-            id
-        }: Cliente) => {
-            await removeCliente(id)
-            fetchClientes()
-        }
-
-    const closeModal = () => {
-        setIsModalOpen(false)
-    }
-
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        try {
-            if(id === 0)
-                await addCliente(
-                    nome,
-                    endereco,
-                    data_de_nascimento,
-                    numero_de_telefone,
-                    email,
-                    cpf
-                )
-            else 
-                await updateCliente(
-                    id,
-                    nome,
-                    endereco,
-                    data_de_nascimento,
-                    numero_de_telefone,
-                    email,
-                    cpf
-                )
-
-            fetchClientes()
-            closeModal()
-        } catch (error) {
-            console.error(' Erro adding cliente:', error)
-        }
-    }
+       useEffect(() => {
+           fetchClientes()
+       }, [])
     
+       const handleEdit = ({
+           id,
+           nome,
+           endereco,
+           data_nascimento,
+           numero_de_telefone,
+           email,
+           cpf
+        
+       }: Cliente) => {
+           setId(id)
+           setNome(nome)
+           setEndereco(endereco)
+           setDataDeNascimento(data_nascimento)
+           setNumeroDeTelefone(numero_de_telefone)
+           setEmail(email)
+           setCPF(cpf)
+           setIsModalOpen(true)
+       }
+    
+       const handleRemove = async ({
+               id
+           }: Cliente) => {
+               await removeCliente(id)
+               fetchClientes()
+           }
+        
+       const closeModal = () => {
+           setIsModalOpen(false)
+       }
+    
+       const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+           event.preventDefault()
+           try {
+               if(id === 0)
+                   await addCliente(
+                       nome,
+                       endereco,
+                       data_nascimento,
+                       numero_de_telefone,
+                       email,
+                       cpf
+                   )
+               else 
+                   await updateCliente(
+                       id,
+                       nome,
+                       endereco,
+                       data_nascimento,
+                       numero_de_telefone,
+                       email,
+                       cpf
+                   )
+                
+               fetchClientes()
+               closeModal()
+           } catch (error) {
+               console.error(' Erro adding cliente:', error)
+           }
+       }
+       
+    
+       return (
+      <div className="container mx-auto p-4">
+          <h1 className="text-2x1 font-bold mb-4">Cadastro De Clientes</h1>
 
-  return (
-    <div className="container mx-auto p-4">
-        <h1 className="text-2x1 font-bold mb-4">Cadastro De Clientes</h1>
+          <div className="mb-4">
+              <button
+              onClick={() => handleEdit({
+                  id: 0,
+                  nome: '',
+                  endereco: '',
+                  data_nascimento: '',
+                  numero_de_telefone: 0,
+                  email: '',
+                  cpf: ''
+              })}
+              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                  Adicionar novo Cliente
+              </button>
+          </div>
 
-        <div className="mb-4">
-            <button
-            onClick={() => handleEdit({
-                id: 0,
-                nome: '',
-                endereco: '',
-                data_de_nascimento: '',
-                numero_de_telefone: 0,
-                email: '',
-                cpf: ''
-            })}
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-                Adicionar novo Cliente
-            </button>
-        </div>
-
-        <div className="overflow-x-auto">
-            <table className="table-auto w-full">
-                <thead>
-                    <tr>
-                        <th className="border px-4 py-2">Nome</th>
-                        <th className="border px-4 py-2">Email</th>
-                        <th className="border px-4 py-2">Açoes</th>
-                    </tr>
-                </thead>
+          <div className="overflow-x-auto">
+              <table className="table-auto w-full">
+                  <thead>
+                      <tr>
+                          <th className="border px-4 py-2">Nome</th>
+                          <th className="border px-4 py-2">Email</th>
+                          <th className="border px-4 py-2">Açoes</th>
+                      </tr>
+                  </thead>
        <tbody>
            {clientes.map((cliente) => (
                <tr 
@@ -212,9 +214,9 @@ export default function Page() {
                  <div className="mt-1">
                      <input 
                      type="date" 
-                     name="data_de_nascimento" 
-                     id="data_de_nascimento" 
-                     value={data_de_nascimento}
+                     name="data_nascimento" 
+                     id="data_nascimento" 
+                     value={data_nascimento}
                      onChange={(event) => setDataDeNascimento(event.target.value)}
                      required
                      />
@@ -238,7 +240,7 @@ export default function Page() {
                 />
             </div>
         </div>
-
+            
         <div>
             <label htmlFor=""
             className="block text-sm font-medium text-gray-900"

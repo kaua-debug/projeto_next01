@@ -112,16 +112,68 @@ export default function Page() {
 
               <div>
                 <label htmlFor=""
-                className=''
+                className='block text-sm font-medium text-gray-900'
                 >
-
+                    Nome
                 </label>
+              <input
+               type="text" 
+               value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                 placeholder="Nome"
+                  required 
+                  className="w-full p-2 border rounded"
+                   />
               </div>
 
-              <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome" required className="w-full p-2 border rounded" />
-              <input type="text" value={endereco} onChange={(e) => setEndereco(e.target.value)} placeholder="Endereço" required className="w-full p-2 border rounded" />
-              <input type="number" value={quantidade_alunos} onChange={(e) => setQuantidade_alunos(Number(e.target.value))} placeholder="Quantidade de Alunos" required className="w-full p-2 border rounded" />
-              <input type="text" value={telefone} onChange={(e) => setTelefone(e.target.value)} placeholder="Telefone" required className="w-full p-2 border rounded" />
+              <div>
+                <label htmlFor=""
+                className='block text-sm font-medium text-gray-900'
+                >
+                  endereco
+                </label>
+              <input
+               type="text" 
+              value={endereco}
+               onChange={(e) => setEndereco(e.target.value)} 
+               placeholder="Endereço" 
+               required
+                className="w-full p-2 border rounded" 
+                />
+              </div>
+
+              <div>
+                <label htmlFor=""
+                className='block text-sm font-medium text-gray-900'
+                >
+                  Qtd Alunos
+                </label>
+              <input 
+              type="number"
+               value={quantidade_alunos}
+                onChange={(e) => setQuantidade_alunos(Number(e.target.value))} 
+                placeholder="Quantidade de Alunos" 
+                required 
+                className="w-full p-2 border rounded"
+                 />
+              </div>
+
+              <div>
+                <label htmlFor=""
+                className='block text-sm font-medium text-gray-900'
+                >
+                  telefone
+                </label>
+              <input 
+              type="text"
+               value={telefone}
+                onChange={(e) => setTelefone(e.target.value)}
+                 placeholder="Telefone"
+                  required 
+                  className="w-full p-2 border rounded"
+                   />
+              </div>
+
               <div className="flex justify-end gap-4">
                 <button type="button" onClick={closeModal} className="text-gray-700">Cancelar</button>
                 <button type="submit" className="bg-indigo-600 px-4 py-2 text-white rounded">Salvar</button>
