@@ -37,12 +37,12 @@ Erros:
             ✔ preco de venda @done(25-04-09 17:37)
         
     Clientes:
-        ☐ salvar edicao nao funciona
+        ✔ salvar edicao nao funciona @done(25-04-11 14:09)
         editar nao carrega os campos:
-            ☐ data de nascimento
+            ✔ data de nascimento @done(25-04-11 14:09)
             ✔ cpf @done(25-04-09 17:41)
     Computadores:
-        ☐ salvar novo computador nao funciona, outros testes nao puderam ser feitos
+        ✔ salvar novo computador nao funciona, outros testes nao puderam ser feitos @done(25-04-11 14:37)
     Curriculos:
         ❤️
     Escolas:
@@ -57,25 +57,25 @@ Erros:
     Instrumentos:
         ❤️
     Instrutores:
-        ☐ tabela de registros nao mostra valores das colunas
-        ☐ formulario de edicao nao carrega nenhum campo
-        ☐ salvar edicao nao funciona
-        ☐ excluir nao funciona
+        ✔ tabela de registros nao mostra valores das colunas @done(25-04-11 14:56)
+        ✔ formulario de edicao nao carrega nenhum campo @done(25-04-11 14:58)
+        ✔ salvar edicao nao funciona @done(25-04-11 14:59)
+        ✔ excluir nao funciona @done(25-04-11 15:02)
     Livros:
         ☐ formulario de edicao nao carrega o campo data
-        ☐ salvar edicao nao funciona
+        ✔ salvar edicao nao funciona @done(25-04-11 16:54)
         ☐ 
     Materias:
         ✔ salvar nova materia nao funciona @done(25-04-10 15:49)
     Pneus:
-        ☐ formulario de edicao nao carrega o campo carga maxima
-        ☐ aparecem erros na pagina ao editar alguns campos do formulario
-        ☐ bota excluir nao funciona
+        ✔ formulario de edicao nao carrega o campo carga maxima @done(25-04-11 16:36)
+        ✔ aparecem erros na pagina ao editar alguns campos do formulario @done(25-04-11 16:37)
+        ✔ bota excluir nao funciona @done(25-04-11 16:35)
     Produtos:
         ✔ tabela de registros nao mostra o valor da coluna valor unitario @done(25-04-10 14:22)
         editar nao carrega as colunas:
             ✔ valor unitario @done(25-04-10 14:22)
-            ☐ validade
+            ✔ validade @done(25-04-11 16:38)
     Professores:
         ❤️
     Usuarios:
