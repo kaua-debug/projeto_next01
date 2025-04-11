@@ -10,7 +10,7 @@
           largura: number;
           raio: number;
           espessura: number;
-          cargaMaxima: number;
+          carga_maxima: number;
         }
 
         export default function Page() {
@@ -22,7 +22,7 @@
           const [largura, setLargura] = useState(0);
           const [raio, setRaio] = useState(0);
           const [espessura, setEspessura] = useState(0);
-          const [cargaMaxima, setCargaMaxima] = useState(0);
+          const [carga_maxima, setCarga_maxima] = useState(0);
         
 
           const fetchPneus = async () => {
@@ -47,7 +47,7 @@
             setLargura(pneu.largura);
             setRaio(pneu.raio);
             setEspessura(pneu.espessura);
-            setCargaMaxima(pneu.cargaMaxima);
+            setCarga_maxima(pneu.carga_maxima);
             setIsModalOpen(true);
           };
         
@@ -67,9 +67,9 @@
             event.preventDefault();
             try {
               if (id === 0) {
-                await addPneu(marca, modelo, largura, raio, espessura, cargaMaxima);
+                await addPneu(marca, modelo, largura, raio, espessura, carga_maxima);
               } else {
-                await updatePneu(id, marca, modelo, largura, raio, espessura, cargaMaxima);
+                await updatePneu(id, marca, modelo, largura, raio, espessura, carga_maxima);
               }
               fetchPneus();
               closeModal();
@@ -85,7 +85,7 @@
   
       <div className="mb-4">
         <button
-          onClick={() => handleEdit({ id: 0, marca: '', modelo: '', largura: 0, raio: 0, espessura: 0, cargaMaxima: 0 })}
+          onClick={() => handleEdit({ id: 0, marca: '', modelo: '', largura: 0, raio: 0, espessura: 0, carga_maxima: 0 })}
           className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           Adicionar Novo Pneu
@@ -114,7 +114,7 @@
                 <td className="border px-4 py-2">{pneu.largura}</td>
                 <td className="border px-4 py-2">{pneu.raio}</td>
                 <td className="border px-4 py-2">{pneu.espessura}</td>
-                <td className="border px-4 py-2">{pneu.cargaMaxima}</td>
+                <td className="border px-4 py-2">{pneu.carga_maxima}</td>
                 <td className="border px-4 py-2">
                   <button
                     onClick={() => handleEdit(pneu)}
@@ -202,8 +202,8 @@
                   <label className="block text-sm font-medium text-gray-900">Carga Máxima</label>
                   <input
                     type="number"
-                    value={cargaMaxima}
-                    onChange={(e) => setCargaMaxima(Number(e.target.value))}
+                    value={carga_maxima}
+                    onChange={(e) => setCarga_maxima(Number(e.target.value))}
                     className="w-full rounded-md border-gray-300 px-3 py-1.5"
                     required
                   />

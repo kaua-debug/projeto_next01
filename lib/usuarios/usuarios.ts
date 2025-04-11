@@ -24,12 +24,21 @@ export async function updateUsuario(
     await pool.query(
         `
         UPDATE usuarios SET 
-            nome = '${nome}',
-            apelido = '${apelido}',
-            email = '${email}',
-            senha = '${senha}'
-        WHERE id = ${id}
-        `
+            nome = $1,
+            apelido = $2,
+            email = $3,
+            senha = $4
+            WHERE id = $5
+        `, 
+            [
+
+            nome,
+            apelido, 
+            email, 
+            senha,
+            id 
+
+            ]
     );
 }
 

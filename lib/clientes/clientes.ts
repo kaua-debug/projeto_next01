@@ -11,7 +11,7 @@ export async function addCliente (
   cpf: string
 ) {
   await pool.query(
-    `INSERT INTO cliente (nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf) 
+    `INSERT INTO cliente (nome, endereco, data_nascimento, numero_de_telefone, email, cpf) 
      VALUES ($1, $2, $3, $4, $5, $6)`, 
      [nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf]
   );
@@ -34,10 +34,10 @@ export async function updateCliente (
     `UPDATE cliente SET
       nome = $1,
       endereco = $2,
-      data_de_nascimento = $3,
+      data_nascimento = $3,
       numero_de_telefone = $4,
       email = $5,
-      cpf = $6,
+      cpf = $6
     WHERE id = $7`,
     [nome, endereco, data_de_nascimento, numero_de_telefone, email, cpf, id]
   );

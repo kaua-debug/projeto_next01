@@ -23,18 +23,28 @@ export async function addPneu(marca: string, modelo: string, largura: number, ra
         await pool.query(
                 `update pneus set
                 
-                    marca = '${marca}',
-                    modelo = '${modelo}',
-                    largura = ${largura},
-                    raio = ${raio},
-                    espessura = ${espessura},
-                    carga_maxima = ${carga_maxima}
-                    WHERE id = ${id}
+                    marca = $1,
+                    modelo = $2,
+                    largura = $3,
+                    raio = $4,
+                    espessura = $5,
+                    carga_maxima = $6
+                    WHERE id = $7
                 
-                 `
+            `,
+            [
+                marca,
+                modelo,
+                largura,
+                raio,
+                espessura,
+                carga_maxima,
+                id
+
+            ]
         )
     }
 
-        export async function removePneu() {
-            await pool.query(`delete fom pneus WHERE id = ${id}`);
+        export async function removePneu(id: number) {
+            await pool.query(`delete from pneus WHERE id = $1`, [id]);
         }

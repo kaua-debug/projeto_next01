@@ -22,24 +22,25 @@ export default function Page() {
   const [endereco, setEndereco] = useState<string>('');
   const [comum, setComum] = useState<string>('');
 
-  // Função para buscar instrutores
+  
   const fetchInstrutores = async () => {
     try {
-      
-      const instrutoresList = await getInstrutores();
-      data.map((instrutores) => {instrutores.data_nascimento = instrutores.data_nascimento.toISOString().split('T') [0]|| ''})
-      setInstrutores(instrutoresList);
+      const data = await getInstrutores();
+      data.map((instrutor) => {
+        instrutor.data_nascimento = instrutor.data_nascimento?.toISOString().split('T')[0] || ''
+      })
+      setInstrutores(data);
     } catch (error) {
       console.error('Erro ao buscar instrutores:', error);
     }
   };
 
-  // useEffect para carregar os instrutores na inicialização da página
+  
   useEffect(() => {
     fetchInstrutores();
   }, []);
 
-  // Função para editar instrutor
+  
   const handleEdit = (instrutor: Instrutor | null) => {
     if (instrutor) {
       setId(instrutor.id);
@@ -59,7 +60,6 @@ export default function Page() {
     setIsModalOpen(true);
   };
 
-  // Função para excluir instrutor
   const handleRemove = async (instrutor: Instrutor) => {
     try {
       await removeInstrutor(instrutor.id);
@@ -69,7 +69,7 @@ export default function Page() {
     }
   };
 
-  // Função para fechar o modal
+
   const closeModal = () => {
     setIsModalOpen(false);
     setId(0);

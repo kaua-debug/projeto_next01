@@ -9,8 +9,8 @@ import { platform } from "os"
         descricao: string
         cpu: string
         memoria: string
-        placaVideo: string
-        placaMae: string
+        placa_de_videoVideo: string
+        placa_mae: string
         fonte: string
         armazenamento: string
     }
@@ -22,8 +22,8 @@ export default function Page() {
     const [descricao, setDescricao] = useState('')
     const [cpu, setCpu] = useState('')
     const [memoria, setMemoria] = useState('')
-    const [placaVideo, setPlacaVideo] = useState('')
-    const [placaMae, setPlacaMae] = useState('')
+    const [placa_de_video, setplaca_de_video] = useState('')
+    const [placa_mae, setPlaca_mae] = useState('')
     const [fonte, setFonte] = useState('')
     const [armazenamento, setArmazenamento] = useState('')
 
@@ -45,8 +45,8 @@ export default function Page() {
             setDescricao(computador.descricao);
             setCpu(computador.cpu);
             setMemoria(computador.memoria);
-            setPlacaVideo(computador.placaVideo);
-            setPlacaMae(computador.placaMae);
+            setplaca_de_video(computador.placa_de_video || '');
+            setPlaca_mae(computador.placa_mae || '');
             setFonte(computador.fonte);
             setArmazenamento(computador.armazenamento);
             setIsModalOpen(true);
@@ -66,9 +66,9 @@ export default function Page() {
               event.preventDefault();
               try {
                 if (id === 0) {
-                  await addComputador(descricao, cpu, memoria, placaVideo, placaMae, fonte, armazenamento);
+                  await addComputador(descricao, cpu, memoria, placa_de_video, placa_mae, fonte, armazenamento);
                 } else {
-                  await updateComputador(id, descricao, cpu, memoria, placaVideo, placaMae, fonte, armazenamento);
+                  await updateComputador(id, descricao, cpu, memoria, placa_de_video, placa_mae, fonte, armazenamento);
                 }
                 fetchComputadores();
                 closeModal();
@@ -90,8 +90,8 @@ export default function Page() {
                         descricao: '',
                         cpu: '',
                         memoria: '',
-                        placaVideo: '',
-                        placaMae: '',
+                        placa_de_video: '',
+                        placa_mae: '',
                         fonte: '',
                         armazenamento: '',
                       })
@@ -105,18 +105,19 @@ export default function Page() {
                 <div className="overflow-x-auto">
                   <table className="table-auto w-full mt-4 border-collapse border border-gray-300">
                     <thead className="bg-gray-200">
-                     
+                      <tr>
+                        <th className="border px-4 py-2">cpu</th>
+                        <th className="border px-4 py-2">descri;ao</th>
+                        <th className="border px-4 py-2">Placa de Video</th>
+                        <th className="border px-4 py-2">Açoes</th>
+                      </tr>
                     </thead>
                     <tbody>
                       {computador.map((comp) => (
                         <tr key={comp.id} className="border-t">
-                          <td className="border px-4 py-2">{comp.descricao}</td>
                           <td className="border px-4 py-2">{comp.cpu}</td>
-                          <td className="border px-4 py-2">{comp.memoria}</td>
-                          <td className="border px-4 py-2">{comp.placaVideo}</td>
-                          <td className="border px-4 py-2">{comp.placaMae}</td>
-                          <td className="border px-4 py-2">{comp.fonte}</td>
-                          <td className="border px-4 py-2">{comp.armazenamento}</td>
+                          <td className="border px-4 py-2">{comp.descricao}</td>
+                          <td className="border px-4 py-2">{comp.placa_de_video}</td>
                           <td className="border px-4 py-2">
                             <button
                               onClick={() => handleEdit(comp)}
@@ -182,8 +183,8 @@ export default function Page() {
                             <label className="block text-sm font-medium text-gray-900">Placa de Vídeo</label>
                             <input
                               type="text"
-                              value={placaVideo}
-                              onChange={(e) => setPlacaVideo(e.target.value)}
+                              value={placa_de_video}
+                              onChange={(e) => setplaca_de_video(e.target.value)}
                               className="w-full rounded-md border-gray-300 px-3 py-1.5"
                               required
                             />
@@ -192,8 +193,8 @@ export default function Page() {
                             <label className="block text-sm font-medium text-gray-900">Placa Mãe</label>
                             <input
                               type="text"
-                              value={placaMae}
-                              onChange={(e) => setPlacaMae(e.target.value)}
+                              value={placa_mae}
+                              onChange={(e) => setPlaca_mae(e.target.value)}
                               className="w-full rounded-md border-gray-300 px-3 py-1.5"
                               required
                             />
@@ -234,7 +235,7 @@ export default function Page() {
                           <button
                             type="submit"
                             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
-                            onClick={closeModal}>
+                            >
                             Salvar
                           </button>
                         </div>

@@ -9,7 +9,7 @@
               autor: string;
               assunto: string;
               resumo: string;
-              dataLancamento: string;
+              data_de_lancamento: string;
               preco_sugerido: number;
             }
 
@@ -21,12 +21,15 @@
               const [autor, setAutor] = useState('');
               const [assunto, setAssunto] = useState('');
               const [resumo, setResumo] = useState('');
-              const [dataLancamento, setDataLancamento] = useState('');
+              const [data_de_lancamento, setdata_de_lancamento] = useState('');
               const [preco_sugerido, setPrecoSugerido] = useState(0);
             
               const fetchLivros = async () => {
                 try {
                   const data = await getLivros();
+                  data.map((livro) =>{
+                    livro.data_de_lancamento = livro.data_de_lancamento?.toISOString().split('T')[0] 
+                  })
                   setLivros(data);
                 } catch (error) {
                   console.error('Erro ao buscar livros:', error);
@@ -37,13 +40,13 @@
                 fetchLivros();
               }, []);
           
-              const handleEdit = ({ id, nome, autor, assunto, resumo, dataLancamento, preco_sugerido }: Livro) => {
+              const handleEdit = ({ id, nome, autor, assunto, resumo, data_de_lancamento, preco_sugerido }: Livro) => {
                 setId(id);
                 setNome(nome);
                 setAutor(autor);
                 setAssunto(assunto);
                 setResumo(resumo);
-                setDataLancamento(dataLancamento);
+                setdata_de_lancamento(data_de_lancamento);
                 setPrecoSugerido(preco_sugerido);
                 setIsModalOpen(true);
               };
@@ -61,17 +64,17 @@
                 event.preventDefault();
                 
                 try {
-                  console.log("Enviando dados:", { id, nome, autor, assunto, resumo, dataLancamento, preco_sugerido });
+                  console.log("Enviando dados:", { id, nome, autor, assunto, resumo, data_de_lancamento, preco_sugerido });
               
                   if (id === 0) {
-                    await addLivro(nome, autor, assunto, resumo, dataLancamento, preco_sugerido);
+                    await addLivro(nome, autor, assunto, resumo, data_de_lancamento, preco_sugerido);
                   } else {
-                    await updateLivro(id, nome, autor, assunto, resumo, dataLancamento, preco_sugerido);
+                    await updateLivro(id, nome, autor, assunto, resumo, data_de_lancamento, preco_sugerido);
                   }
               
                   console.log("Livro salvo com sucesso!");
               
-                  await fetchLivros(); // Atualiza a lista
+                  await fetchLivros(); 
                   closeModal(); 
                 } catch (error) {
                   console.error("Erro ao salvar livro:", error);
@@ -82,7 +85,20 @@
               return (
                 <div className="container mx-auto p-4">
                   <h1 className="text-2xl font-bold mb-4">Cadastro de Livros</h1>
-                  <button onClick={() => handleEdit({ id: 0, nome: '', autor: '', assunto: '', resumo: '', dataLancamento: '', preco_sugerido: 0 })} className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500">
+                  <button 
+                    onClick={() =>
+                      handleEdit({
+                        id: 0, 
+                        nome: '',
+                        autor: '',
+                        assunto: '', 
+                        resumo: '',
+                        data_de_lancamento: '', 
+                        preco_sugerido: 0
+                      })
+                    } 
+                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500"
+                  >
                     Adicionar Novo Livro
                   </button>
                   <table className="table-auto w-full mt-4">
@@ -115,7 +131,7 @@
                           <input type="text" value={autor} onChange={(e) => setAutor(e.target.value)} placeholder="Autor" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
                           <input type="text" value={assunto} onChange={(e) => setAssunto(e.target.value)} placeholder="Assunto" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
                           <textarea value={resumo} onChange={(e) => setResumo(e.target.value)} placeholder="Resumo" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
-                          <input type="date" value={dataLancamento} onChange={(e) => setDataLancamento(e.target.value)} placeholder="Data de Lançamento" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
+                          <input type="date" value={data_de_lancamento} onChange={(e) => setdata_de_lancamento(e.target.value)} placeholder="Data de Lançamento" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
                           <input type="number" value={preco_sugerido} onChange={(e) => setPrecoSugerido(Number(e.target.value))} placeholder="Preço Sugerido" className="block w-full px-3 py-1.5 mb-2 border rounded" required />
                           <div className="flex justify-end mt-4">
                             <button type="button" className="mr-2 text-sm text-gray-900" onClick={closeModal}>Cancelar</button>

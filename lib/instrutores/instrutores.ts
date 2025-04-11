@@ -15,7 +15,7 @@ export async function addInstrutores(
 }
 
         export async function getInstrutores() {
-            return (await pool.query (`select from instrutores`)).rows
+            return (await pool.query (`select *from instrutores`)).rows
 
         }
 
@@ -36,6 +36,8 @@ export async function addInstrutores(
         }
         
 
-        export async function removeInstrutor (id: number){
-            await pool.query (`delete from instrutores where id ${id}`);
+        export async function removeInstrutor(
+            id: number
+        ) {
+            await pool.query(`delete from instrutores where id = ${id}`);
         }

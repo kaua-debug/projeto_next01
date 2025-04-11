@@ -28,17 +28,26 @@ export async function addLivro( nome: string, autor: string, assunto: string, re
     	preco_sugerido: number
 
 	 ) {
-		await pool.query(`update Livro set
+		await pool.query(`update livro set
 			
-			nome = '${nome}'
-			autor = '${autor}
-			assunto = '${assunto}'
-			resumO = '${resumo}'
-			dataLancamento = '${dataLancamento}'
-			preco_sugerido = '${preco_sugerido}'	
-		where id = ${id}	
-
-			`);
+			nome = $1,
+			autor = $2,
+			assunto = $3,
+			resumO = $4,
+			dataLancamento = $5,
+			preco_sugerido = $6
+		where id = $7	
+			`,
+		[
+			nome,
+			autor,
+			assunto,
+			resumo,
+			dataLancamento,
+			preco_sugerido,
+			id
+		]
+		);
 	 }
 
 	 	export async function removeLivro(id: number) {

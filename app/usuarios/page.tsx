@@ -163,7 +163,8 @@ export default function Page() {
                 id="senha"
                 autoComplete="new-password"
                 value={senha}
-                onChange={(e) => setsenha(e.target.value)}
+                onChange={(e) => 
+                  setsenha(e.target.value)}
                 placeholder="senha"
                 required={id === 0}
                 className="border p-2 rounded"
